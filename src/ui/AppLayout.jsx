@@ -4,10 +4,10 @@ import styled from "styled-components";
 import Nav from "../ui/Nav";
 
 const StyledAppLayout = styled.main`
-  background: linear-gradient(to bottom, #9a8b65, #b4aa90);
+  background-color: #d2d1d1;
 
   height: 100vh;
-  padding: 4rem 5rem 0;
+  padding: 1rem 7rem 0;
 `;
 
 function AppLayout() {

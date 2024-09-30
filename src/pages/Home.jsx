@@ -1,15 +1,14 @@
-import React from "react";
 import ShowCase from "../ui/ShowCase";
 import TrendingPreview from "../ui/TrendingPreview";
+import Footer from "../ui/Footer";
+
 import styled from "styled-components";
 
 const StyledHome = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding-top: 0.2rem;
-  /* background-color: white; */
-  height: 85vh;
+  height: 100vh;
 `;
 
 function Home() {
@@ -17,6 +16,7 @@ function Home() {
     <StyledHome>
       <ShowCase />
       <TrendingPreview />
+      <Footer />
     </StyledHome>
   );
 }
