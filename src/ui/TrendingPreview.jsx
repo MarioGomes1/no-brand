@@ -3,8 +3,7 @@ import styled from "styled-components";
 import TrendingList from "./TrendingList";
 
 const StyledTrendingPreview = styled.div`
-  background-color: #f1eeee;
-  height: 40%;
+  /* background-color: #774343; */
 `;
 
 function TrendingPreview() {
