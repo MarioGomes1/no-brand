@@ -9,13 +9,18 @@ import Login from "./pages/Login";
 import GlobalStyles from "./styles/GlobalStyles";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 function App() {
   //TODO Change the path to the corresponding pages
   //TODO Add the actual corresponding pages i.e men, women, kids etc
   //TODO delete old pages that are no longer needed i.e trending and maybe that's it...oh no dashboard...? idk
+
+  const queryClient = new QueryClient();
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
@@ -31,7 +36,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </QueryClientProvider>
   );
 }
 
