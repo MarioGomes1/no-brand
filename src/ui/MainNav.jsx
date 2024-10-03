@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "./Button";
+import { NavLink } from "react-router-dom";
 
 const StyledMainNav = styled.nav`
   grid-area: 1/1/1/-1;
@@ -16,8 +17,8 @@ function MainNav() {
   return (
     <StyledMainNav>
       <ButtonContainer>
-        <Button>Login</Button>
-        <Button>Sign up</Button>
+        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/signup">Sign up</NavLink>
       </ButtonContainer>
     </StyledMainNav>
   );

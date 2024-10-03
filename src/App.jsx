@@ -8,8 +8,12 @@ import TrendingProducts from "./pages/TrendingProducts";
 import Login from "./pages/Login";
 import GlobalStyles from "./styles/GlobalStyles";
 import Home from "./pages/Home";
+import Signup from "./pages/Signup";
 
 function App() {
+  //TODO Change the path to the corresponding pages
+  //TODO Add the actual corresponding pages i.e men, women, kids etc
+  //TODO delete old pages that are no longer needed i.e trending and maybe that's it...oh no dashboard...? idk
   return (
     <>
       <GlobalStyles />
@@ -22,8 +26,9 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/trending" element={<TrendingProducts />} />
-            <Route path="/login" element={<Login />} />
           </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </BrowserRouter>
     </>
