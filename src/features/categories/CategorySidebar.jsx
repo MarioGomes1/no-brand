@@ -3,25 +3,26 @@ import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 
 const StyledSidebar = styled.aside`
-  background-color: red;
-  height: 0%;
+  grid-area: 1/1/3/1;
+  /* background-color: #b86262; */
+  /* height: 0%; */
   width: 100%;
-  opacity: 0;
+  /* opacity: 0; */
   ${(props) =>
     props.show &&
     css`
-      grid-area: 3/1/3/-1;
+      /* grid-area: 3/1/3/-1;
       z-index: 1;
       transition: height 0.25s ease-in-out;
       transition: opacity 0.25s ease-in;
       opacity: 1;
-      height: 50%;
+      height: 50%; */
     `}
 `;
 
 function CategorySidebar() {
-  const showSidebar = useSelector((state) => state.categories.showSidebar);
-  return <StyledSidebar show={showSidebar}>CategorySidebar</StyledSidebar>;
+  // const showSidebar = useSelector((state) => state.categories.showSidebar);
+  return <StyledSidebar>CategorySidebar</StyledSidebar>;
 }
 
 export default CategorySidebar;

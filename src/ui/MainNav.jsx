@@ -4,7 +4,9 @@ import Button from "./Button";
 import { NavLink } from "react-router-dom";
 
 const StyledMainNav = styled.nav`
+  background-color: var(--color-grey-0);
   grid-area: 1/1/1/-1;
+  padding: 0.5rem;
 `;
 
 const ButtonContainer = styled.div`

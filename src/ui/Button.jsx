@@ -9,12 +9,21 @@ const sizes = {
     font-weight: 600;
     text-align: center;
   `,
+
+  medium: css`
+    font-size: 1.2rem;
+    padding: 0.4rem 0.8rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+  `,
 };
 
 const variations = {
   primary: css`
     color: #cbced7;
-    background-color: red;
+    background-color: #758ac9;
+    border-radius: 15px;
 
     &:hover {
       background-color: var(--color-brand-700);

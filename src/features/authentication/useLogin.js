@@ -3,10 +3,10 @@ import { loginUser } from "../../services/apiUsers";
 
 export function useLogin() {
   const queryClient = useQueryClient();
-  const { mutate: attemptLogin, loading } = useMutation({
+  const { mutate: attemptLogin, error } = useMutation({
     mutationFn: (user) => loginUser(user),
     onSuccess: () => console.log("Logged in"),
   });
 
-  return { attemptLogin, loading };
+  return { attemptLogin, error };
 }

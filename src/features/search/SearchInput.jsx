@@ -2,25 +2,33 @@ import React from "react";
 import styled from "styled-components";
 import Button from "../../ui/Button";
 
+import { CiSearch } from "react-icons/ci";
+
 const Container = styled.div`
   position: relative;
-  display: flex;
-  /* width: 100%; */
-  top: 20%;
-  left: 100px;
-  z-index: 1000;
 `;
 
 const Input = styled.input`
   border-radius: 28px;
-  height: 4rem;
+  height: 3rem;
+  width: 80%;
+  padding-left: 3rem;
+  background-color: var(--color-grey-0);
+  border: none;
+`;
+
+const SearchIcon = styled(CiSearch)`
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
 `;
 
 function SearchInput() {
   return (
     <Container>
-      <Input type="text" />
-      <Button size="small">Search</Button>
+      <SearchIcon />
+      <Input type="text" placeholder="Search" />
+      {/* <Button size="small">Search</Button> */}
     </Container>
   );
 }

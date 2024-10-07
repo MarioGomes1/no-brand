@@ -1,17 +1,15 @@
-import { useSelector } from "react-redux";
 import ShowCase from "../ui/ShowCase";
 import TrendingPreview from "../ui/TrendingPreview";
+import Attention from "../ui/Attention";
 
 import styled, { css } from "styled-components";
 import { useEffect } from "react";
+import Category from "../ui/Category";
 
 const StyledHome = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 0.2rem;
-  /* height: 90vh; */
-
-  grid-area: 3/1/3/3;
 `;
 
 function Home() {
@@ -28,7 +26,8 @@ function Home() {
   return (
     <StyledHome>
       <ShowCase />
-      <TrendingPreview />
+      <Attention />
+      <Category />
     </StyledHome>
   );
 }

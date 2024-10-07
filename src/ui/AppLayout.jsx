@@ -8,12 +8,14 @@ import Footer from "../ui/Footer";
 import MainNav from "./MainNav";
 
 const StyledAppLayout = styled.main`
-  background-color: #d2d1d1;
+  background-color: var(--color-white-main);
   /* padding: 1rem 7rem 0; */
   height: 100vh;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: 3% 7% 1fr 25%;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: space-between; */
+  /* grid-template-columns: auto 1fr;
+  grid-template-rows: 3% 7% 1fr 25%; */
 `;
 
 function AppLayout() {
@@ -25,8 +27,8 @@ function AppLayout() {
       <MainNav />
       <Nav />
       <Outlet />
-      <CategorySidebar />
-      <Footer />
+      {/* <CategorySidebar /> */}
+      {/* <Footer /> */}
     </StyledAppLayout>
   );
 }

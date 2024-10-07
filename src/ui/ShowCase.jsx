@@ -3,9 +3,8 @@ import SearchInput from "../features/search/SearchInput";
 import mainSection2 from "../data/mainSection2.jpg";
 
 const StyledShowCase = styled.div`
-  background-color: red;
-  /* height: 50%; */
-  /* grid-row-start: 2/-1; */
+  /* background-color: var(--color-white-main); */
+  height: 60vh;
 `;
 
 const Img = styled.img`
