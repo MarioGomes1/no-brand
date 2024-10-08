@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "./Button";
+import { BiCart } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 
 const StyledMainNav = styled.nav`
@@ -21,6 +22,7 @@ function MainNav() {
       <ButtonContainer>
         <NavLink to="/login">Login</NavLink>
         <NavLink to="/signup">Sign up</NavLink>
+        <BiCart size={20} color={"blue"} />
       </ButtonContainer>
     </StyledMainNav>
   );

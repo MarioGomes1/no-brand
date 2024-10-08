@@ -1,59 +1,102 @@
 import React from "react";
 import styled from "styled-components";
-import { BiArrowBack, BiCart } from "react-icons/bi";
+import { BiCart } from "react-icons/bi";
 import { BiHeart } from "react-icons/bi";
 import { BiRightArrow } from "react-icons/bi";
 
 import { FaShoppingCart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
+import { BsListNested } from "react-icons/bs";
+
+const HoverContainer = styled.div`
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: #d6cfcf;
+`;
 
 const StyledProduct = styled.div`
   width: 23.5rem;
-  padding: 3px;
   margin: 5px;
   height: 30rem;
   position: relative;
+  &:hover ${HoverContainer} {
+    opacity: 0.8;
+    transition: opacity 0.5s;
+  }
 `;
 
 const Img = styled.img`
   object-fit: cover;
   height: 100%;
   width: 100%;
+`;
 
+const Emoji = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+//TODO move these to a reusable component.
+const CartEmoji = styled(BiCart)`
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 20px;
   &:hover {
-    opacity: 0.5;
+    background-color: red;
+  }
+`;
+const HeartEmoji = styled(BiHeart)`
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 20px;
+  &:hover {
+    background-color: red;
+  }
+`;
+const ArrowEmoji = styled(BiRightArrow)`
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 20px;
+  &:hover {
+    background-color: red;
   }
 `;
 
-const HoverContainer = styled.div`
+const BuyButton = styled.button`
+  margin-top: 20%;
   width: 100%;
-  height: 100px;
-  position: absolute;
-  top: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-`;
-const Emoji = styled.div`
-  width: 100%;
+  background-color: #00ffff;
+  border-radius: 5px;
+  &:hover {
+    background-color: #189d9d;
+    color: white;
+    transition: background-color 0.5s;
+  }
 `;
 function ProductItem({ product }) {
   const { img, price, size } = product;
-  size.map((el) => console.log(el));
 
   return (
     <StyledProduct>
       <Img src={img} alt="" />
       <HoverContainer>
         <Emoji>
-          <BiCart size={35} />
-          <BiHeart size={35} />
-          <BiRightArrow size={35} />
+          <CartEmoji onClick={() => console.log("test")} size={35} />
+          <HeartEmoji size={35} />
+          <ArrowEmoji size={35} />
         </Emoji>
         <Price price={price} />
         <Size size={size} />
+        <BuyButton>Buy Now</BuyButton>
       </HoverContainer>
     </StyledProduct>
   );
@@ -64,11 +107,23 @@ function Price({ price }) {
 }
 
 function Size({ size }) {
-  console.log(size[0]);
+  const Span = styled.li`
+    display: inline-block;
+    text-align: center;
+    width: 3rem;
+    border: 2px inset black;
+    padding: 1px;
+    margin: 2px;
+
+    &:hover {
+      cursor: pointer;
+      border: 2px solid black;
+    }
+  `;
   return (
     <div>
       {size.map((el) => (
-        <li key={el}>{el}</li>
+        <Span key={el}>{el}</Span>
       ))}
     </div>
   );
