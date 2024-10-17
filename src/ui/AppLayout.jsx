@@ -21,7 +21,6 @@ const StyledAppLayout = styled.main`
 function AppLayout() {
   // const showSideBar = useSelector((state) => state.categories.showSideBar);
   const showSideBar = useSelector((state) => state.categories.showSidebar);
-  console.log(showSideBar);
   return (
     <StyledAppLayout>
       <MainNav />

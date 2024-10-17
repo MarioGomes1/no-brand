@@ -50,24 +50,27 @@ const CartEmoji = styled(BiCart)`
   padding: 5px;
   cursor: pointer;
   border-radius: 20px;
+  transition: transform 0.5s;
   &:hover {
-    background-color: red;
+    transform: scale(1.1);
   }
 `;
 const HeartEmoji = styled(BiHeart)`
   padding: 5px;
   cursor: pointer;
   border-radius: 20px;
+  transition: transform 0.5s;
   &:hover {
-    background-color: red;
+    transform: scale(1.1);
   }
 `;
 const ArrowEmoji = styled(BiRightArrow)`
   padding: 5px;
   cursor: pointer;
   border-radius: 20px;
+  transition: transform 0.5s;
   &:hover {
-    background-color: red;
+    transform: scale(1.1);
   }
 `;
 
@@ -83,6 +86,7 @@ const BuyButton = styled.button`
   }
 `;
 function ProductItem({ product }) {
+  // console.log(product);
   const { img, price, size } = product;
 
   return (
@@ -106,20 +110,23 @@ function Price({ price }) {
   return <div>${price}</div>;
 }
 
-function Size({ size }) {
-  const Span = styled.li`
-    display: inline-block;
-    text-align: center;
-    width: 3rem;
-    border: 2px inset black;
-    padding: 1px;
-    margin: 2px;
+const Span = styled.li`
+  display: inline-block;
+  text-align: center;
+  width: 3rem;
+  border: 2px inset black;
+  padding: 1px;
+  margin: 2px;
 
-    &:hover {
-      cursor: pointer;
-      border: 2px solid black;
-    }
-  `;
+  &:hover {
+    cursor: pointer;
+    border: 2px solid black;
+    background-color: grey;
+    transition: background-color 0.5s;
+  }
+`;
+
+function Size({ size }) {
   return (
     <div>
       {size.map((el) => (

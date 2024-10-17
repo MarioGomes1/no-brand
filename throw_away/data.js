@@ -1,19 +1,19 @@
 export const categories = [
   {
     id: 1,
-    title: "Swimwear",
+    title: "Women",
     image:
       "https://images.pexels.com/photos/1154638/pexels-photo-1154638.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1%201x,%20",
   },
   {
     id: 2,
-    title: "Shirts",
+    title: "Men",
     image:
       "https://images.pexels.com/photos/27411697/pexels-photo-27411697/free-photo-of-portrait-of-man-in-shirt.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     id: 3,
-    title: "kids",
+    title: "Kids",
     image:
       "https://images.pexels.com/photos/969373/pexels-photo-969373.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
@@ -38,6 +38,7 @@ const images = [
 ];
 const category = ["Shirt", "Pants", "Swimwear", "Jackets", "Accessories"];
 const sizes = ["S", "M", "L", "XL"];
+const types = ["Men", "kids", "Women"];
 
 export function getRandomProducts() {
   const sampleProducts = 15;
@@ -55,3 +56,33 @@ export function getRandomProducts() {
   }
   return products;
 }
+
+export function seedDB() {
+  const sampleProducts = 15;
+  let products = [];
+
+  for (let i = 0; i < sampleProducts; i++) {
+    products.push({
+      title: "Will change later",
+      desc: "Will update",
+      img: images[Math.floor(Math.random() * 9)],
+      categories: [
+        category[Math.floor(Math.random() * 4)],
+        types[Math.floor(Math.random() * 2)],
+      ],
+      size: sizes,
+      price: Math.floor(Math.random() * 50),
+      quantity: Math.floor(Math.random() * 20),
+    });
+  }
+  return products;
+}
+// {
+//   title: { type: String, required: true, unique: true },
+//   desc: { type: String, required: true },
+//   img: { type: String, required: true },
+//   categories: { type: Array },
+//   size: { type: String },
+//   color: { type: String },
+//   price: { type: Number, required: true },
+// },

@@ -3,7 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AppLayout from "./ui/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import Cart from "./pages/Cart";
-import Categories from "./pages/Categories";
+import Product from "./pages/Product";
 import TrendingProducts from "./pages/TrendingProducts";
 import Login from "./pages/Login";
 import GlobalStyles from "./styles/GlobalStyles";
@@ -29,7 +29,9 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/categories" element={<Categories />} />
+            <Route path="/products" element={<Product />}>
+              <Route path="/products/:category" element={<Product />} />
+            </Route>
             <Route path="/trending" element={<TrendingProducts />} />
           </Route>
           <Route path="/login" element={<Login />} />

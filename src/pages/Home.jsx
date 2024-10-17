@@ -19,7 +19,6 @@ function Home() {
         "http://localhost:8000/api/products?category=man"
       );
       const data = await res.json();
-      console.log(data);
     };
     testConnection();
   }, []);

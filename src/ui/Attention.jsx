@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import Button from "./Button";
+import { NavLink } from "react-router-dom";
 
 const StyledAttention = styled.div`
   height: 25vh;
@@ -18,9 +19,7 @@ function Attention() {
   return (
     <StyledAttention>
       <Header as="h3">Go beyond the basics</Header>
-      <Button size="medium" variation="primary">
-        Shop
-      </Button>
+      <NavLink to="/products">Shop</NavLink>
     </StyledAttention>
   );
 }

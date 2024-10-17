@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "./Button";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
@@ -29,7 +29,14 @@ const Container = styled.div`
 
 //Will come from api
 const SectionHeaders = styled(NavLink)`
-  &:hover {
+  /* &:hover {
+    border-bottom: 1px solid black;
+    cursor: pointer;
+  } */
+  &:hover,
+  &:active,
+  &.active:link,
+  &.active:visited {
     border-bottom: 1px solid black;
     cursor: pointer;
   }
@@ -39,50 +46,49 @@ const SectionHeaders = styled(NavLink)`
 
 const tempHeaders = [
   {
-    to: "new",
+    to: "New",
     title: "New",
   },
   {
-    to: "men",
+    to: "Men",
     title: "Men",
   },
   {
-    to: "women",
+    to: "Women",
     title: "Women",
   },
   {
-    to: "kids",
-    title: "Kids",
+    to: "Kids",
+    title: "kids",
   },
   {
-    to: "home",
+    to: "Home",
     title: "Home",
   },
   {
-    to: "beauty",
+    to: "Beauty",
     title: "Beauty",
   },
 ];
 
 function Nav() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //temporary to display down/up arrow beside Categories
   const showCategories = useSelector((state) => state.categories.showSidebar);
 
-  function HandleToggleSidebar() {
-    dispatch(toggleCategories());
+  function HandleToggleSidebar(e, el) {
+    e.preventDefault();
+
+    // dispatch(toggleCategories());
+    // navigate(`products/${e.title}`);
   }
   return (
     <Container>
       <StyledNav>
         {tempHeaders.map((el) => (
-          <SectionHeaders
-            onMouseEnter={HandleToggleSidebar}
-            onMouseLeave={HandleToggleSidebar}
-            key={el.title}
-            to={el.to}
-          >
+          <SectionHeaders key={el.title} to={`/products/${el.to}`}>
             {el.title}
           </SectionHeaders>
         ))}
