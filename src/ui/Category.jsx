@@ -7,8 +7,7 @@ import CategoryItem from "./CategoryItem";
 const StyledCategory = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding: 20px;
-  height: 50vh;
+  height: 100vh;
 `;
 
 function Category() {

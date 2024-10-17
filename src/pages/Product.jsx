@@ -4,6 +4,7 @@ import CategorySidebar from "../features/categories/CategorySidebar";
 import Products from "../ui/Products";
 import Filter from "../features/filter/Filter";
 import { getAllProducts } from "../services/product";
+import Subcribe from "../ui/Subcribe";
 
 import {
   useParams,
@@ -19,12 +20,16 @@ Header
 2. Filter component/ Sort Component
 3. Product display
 */
-
-const Container = styled.div`
-  height: 100vh;
+const ProductContainer = styled.div`
   display: grid;
   grid-template-columns: 15% 1fr 10%;
-  grid-template-rows: 5% 1fr 10% 10%;
+  grid-template-rows: 5% auto;
+  min-height: 70vh;
+`;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 function Product() {
@@ -50,16 +55,19 @@ function Product() {
   }, [category]);
   return (
     <>
-      <h1>{category}</h1>
+      <h1>{category || "All"}</h1>
       <Container>
-        <CategorySidebar />
-        <Products products={products} />
-        <Filter
-          filter={handleFilter}
-          label={"Filter Product:"}
-          defaultValue={category}
-        />
-        <div>Sort By:</div>
+        <ProductContainer>
+          <Filter
+            filter={handleFilter}
+            label={"Filter Product:"}
+            defaultValue={category}
+          />
+          <div>Sort By:</div>
+          <CategorySidebar />
+          <Products products={products} />
+        </ProductContainer>
+        <Subcribe />
       </Container>
     </>
   );

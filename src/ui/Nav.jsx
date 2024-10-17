@@ -17,7 +17,8 @@ const StyledNav = styled.ul`
 `;
 
 const Container = styled.div`
-  color: #444136;
+  background-color: #e6e0d7;
+  color: #877147;
   padding: 1rem 1rem;
   display: flex;
   justify-content: center;

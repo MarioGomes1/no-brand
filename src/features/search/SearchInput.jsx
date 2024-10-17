@@ -13,8 +13,8 @@ const Input = styled.input`
   height: 3rem;
   width: 80%;
   padding-left: 3rem;
-  background-color: var(--color-grey-0);
   border: none;
+  color: black;
 `;
 
 const SearchIcon = styled(CiSearch)`

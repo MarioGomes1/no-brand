@@ -5,12 +5,11 @@ import { NavLink } from "react-router-dom";
 const StyledCategoryItem = styled.div`
   flex: 1 0 40%;
   position: relative;
-  /* margin: 10px; */
-  /* padding: 20px; */
+  height: 50vh;
 `;
 const Img = styled.img`
   width: 100%;
-  height: 50vh;
+  height: 100%;
 `;
 
 const Div = styled.div`

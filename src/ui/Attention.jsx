@@ -5,13 +5,13 @@ import Button from "./Button";
 import { NavLink } from "react-router-dom";
 
 const StyledAttention = styled.div`
-  height: 25vh;
   background-color: var(--color-white-main);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  margin-bottom: 3rem;
 `;
 
 function Attention() {
