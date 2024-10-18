@@ -6,7 +6,7 @@ import Header from "./Header";
 const Container = styled.div`
   display: flex;
   background-color: #8d6346;
-  height: 15rem;
+  height: 25rem;
   margin-top: 2rem;
   justify-content: center;
   align-items: center;
@@ -26,6 +26,7 @@ const Input = styled.input`
   background-color: #d8a88a;
   height: 100%;
   width: 100%;
+  padding: 5px;
 `;
 const Button = styled.button`
   width: 10%;
@@ -35,14 +36,18 @@ const Button = styled.button`
   color: white;
 `;
 
-const Detail = styled.div``;
+const Detail = styled.div`
+  padding: 10px;
+`;
 function Subcribe() {
   return (
     <Container>
-      <Header>NEWSLETTER</Header>
-      <Detail>Sign up today to start receiving latest deals</Detail>
+      <Header>Sign up for Daily Deals</Header>
+      <Detail>
+        Sign up to start receiving alerts as soon as new products are released
+      </Detail>
       <InputContainer>
-        <Input />
+        <Input placeholder="Email..." />
         <Button>Go</Button>
       </InputContainer>
     </Container>
