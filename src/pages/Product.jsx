@@ -13,6 +13,7 @@ import {
   replace,
 } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import PromotionBanner from "../ui/PromotionBanner";
 
 /* //TODO
 Header
@@ -22,8 +23,8 @@ Header
 */
 const ProductContainer = styled.div`
   display: grid;
-  grid-template-columns: 15% 1fr 10%;
-  grid-template-rows: 5% auto;
+  grid-template-columns: 18% 1fr 10%;
+  grid-template-rows: 7vh auto;
   min-height: 70vh;
 `;
 const Container = styled.div`
@@ -37,7 +38,6 @@ function Product() {
   const { category } = useParams();
 
   const [newCategory, setNewCategory] = useState(category);
-  console.log(newCategory);
 
   const { data: products, isLoading } = useQuery({
     queryKey: ["products", { newCategory }],
@@ -48,6 +48,9 @@ function Product() {
     setNewCategory(e.target.value);
     navigate(`/products/${e.target.value}`);
   }
+  // const categories ={
+  //   title:products[]
+  // }
 
   //Will refetch
   useEffect(() => {
@@ -55,8 +58,9 @@ function Product() {
   }, [category]);
   return (
     <>
-      <h1>{category || "All"}</h1>
       <Container>
+        <PromotionBanner />
+        <h1>{category || "All"}</h1>
         <ProductContainer>
           <Filter
             filter={handleFilter}
@@ -64,7 +68,7 @@ function Product() {
             defaultValue={category}
           />
           <div>Sort By:</div>
-          <CategorySidebar />
+          <CategorySidebar products={products} />
           <Products products={products} />
         </ProductContainer>
         <Subcribe />

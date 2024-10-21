@@ -8,6 +8,7 @@ const StyledProducts = styled.div`
   flex-wrap: wrap;
   grid-area: 2;
   overflow: hidden;
+  padding-left: 5rem;
 `;
 
 function Products({ products }) {
