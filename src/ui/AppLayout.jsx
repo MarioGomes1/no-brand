@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Nav from "../ui/Nav";
 import { useSelector } from "react-redux";
-import CategorySidebar from "../features/categories/CategorySidebar";
 import Footer from "../ui/Footer";
 import MainNav from "./MainNav";
 
@@ -22,7 +21,6 @@ function AppLayout() {
       <MainNav />
       <Nav />
       <Outlet />
-      {/* <CategorySidebar /> */}
       <Footer />
     </StyledAppLayout>
   );

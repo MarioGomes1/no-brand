@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import CategorySidebar from "../features/categories/CategorySidebar";
+import CategorySidebar from "../features/filter/CategorySidebar";
 import Products from "../ui/Products";
 import Filter from "../features/filter/Filter";
 import { getAllProducts } from "../services/product";
@@ -14,6 +14,8 @@ import {
 } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import PromotionBanner from "../ui/PromotionBanner";
+import { useDispatch } from "react-redux";
+import { addProducts } from "../features/filter/productSlice";
 
 /* //TODO
 Header
@@ -36,6 +38,7 @@ const Container = styled.div`
 function Product() {
   const navigate = useNavigate();
   const { category } = useParams();
+  const dispatch = useDispatch();
 
   const [newCategory, setNewCategory] = useState(category);
 
@@ -44,13 +47,16 @@ function Product() {
     queryFn: () => getAllProducts(newCategory),
   });
 
+  useEffect(() => {
+    if (products && !newCategory) {
+      dispatch(addProducts(products));
+    }
+  }, [products, dispatch, newCategory]);
+
   function handleFilter(e) {
     setNewCategory(e.target.value);
     navigate(`/products/${e.target.value}`);
   }
-  // const categories ={
-  //   title:products[]
-  // }
 
   //Will refetch
   useEffect(() => {

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
+import { getProducts, setCategoryFilter, setPriceFilter } from "./productSlice";
 
 const StyledSidebar = styled.aside`
   grid-area: 2/1/2/1;
@@ -14,12 +15,20 @@ const subCategoryTitles = ["Categories", "Price", "Size"];
 function CategorySidebar({ products }) {
   const [selected, setSelected] = useState("");
   const [showSub, setShowSub] = useState(false);
+
+  const dispatch = useDispatch();
+
   function handleToggleSub() {
     setShowSub((showSub) => !showSub);
   }
 
+  // const price = useSelector(getProductByPrice(60));
+  // const p = useSelector(getProducts);
+
+  // console.log(price);
+
   const filteredSection = {
-    categories: new Set(),
+    categories: [],
     price: {
       under20: 0,
       between20and50: 0,
@@ -32,10 +41,10 @@ function CategorySidebar({ products }) {
 
   products?.forEach((product) => {
     const category = product.categories[0];
-    filteredSection.categories.add(category);
-    // if (!filteredSection.categories.includes(product.categories[0])) {
-    //   filteredSection.categories.push(product.categories[0]);
-    // }
+
+    if (!filteredSection.categories.includes(category)) {
+      filteredSection.categories.push(product.categories[0]);
+    }
 
     if (product.price <= 20) {
       filteredSection.price.under20 += 1;
@@ -47,6 +56,12 @@ function CategorySidebar({ products }) {
       filteredSection.price.over100 += 1;
     }
   });
+
+  useEffect(() => {
+    filteredSection.categories.length &&
+      dispatch(setCategoryFilter(filteredSection.categories));
+    dispatch(setPriceFilter(filteredSection.price));
+  }, [filteredSection.categories, filteredSection.price, dispatch]);
 
   return (
     <StyledSidebar>
@@ -112,6 +127,10 @@ function SubCategories({
   showSub,
   onToggle,
 }) {
+  //   <div>
+  //   <input type="checkbox" id="scales" name="scales" checked />
+  //   <label for="scales">Scales</label>
+  // </div>
   function showOptions() {
     console.log(selected);
     let options;
@@ -125,11 +144,14 @@ function SubCategories({
           <Li>Over $100 ({filtered.over100})</Li>
         </>
       );
-    } else if (title === "categories") {
-      const categoriesArray = Array.from(filtered);
-      options = categoriesArray?.map((el) => <Li key={el}>{el}</Li>);
     } else {
-      options = filtered?.map((el) => <Li key={el}>{el}</Li>);
+      console.log(filtered);
+      options = filtered.map((el) => (
+        <div key={el}>
+          <input type="checkbox" id={el} name={el} />
+          <label htmlFor={el}>{el}</label>
+        </div>
+      ));
     }
     return options;
   }
