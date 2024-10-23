@@ -1,7 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
-import { getProducts, setCategoryFilter, setPriceFilter } from "./productSlice";
+import {
+  filterByCategory,
+  getCategoryFilter,
+  getPriceFilter,
+  getSizeFilter,
+  setCategoryFilter,
+  setPriceFilter,
+  setSizeFilter,
+} from "./productSlice";
 
 const StyledSidebar = styled.aside`
   grid-area: 2/1/2/1;
@@ -13,7 +21,7 @@ const StyledSidebar = styled.aside`
 const subCategoryTitles = ["Categories", "Price", "Size"];
 
 function CategorySidebar({ products }) {
-  const [selected, setSelected] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [showSub, setShowSub] = useState(false);
 
   const dispatch = useDispatch();
@@ -22,50 +30,101 @@ function CategorySidebar({ products }) {
     setShowSub((showSub) => !showSub);
   }
 
-  // const price = useSelector(getProductByPrice(60));
-  // const p = useSelector(getProducts);
+  const filteredSection = useMemo(() => {
+    const section = {
+      categories: [],
+      price: {
+        under20: 0,
+        between20and50: 0,
+        between50and100: 0,
+        over100: 0,
+      },
 
-  // console.log(price);
+      size: ["Small", "Medium", "Large", "Xlarge"],
+    };
 
-  const filteredSection = {
-    categories: [],
-    price: {
-      under20: 0,
-      between20and50: 0,
-      between50and100: 0,
-      over100: 0,
-    },
+    products?.forEach((product) => {
+      const category = product.categories[0];
+      if (!section.categories.includes(category)) {
+        section.categories.push(category);
+      }
 
-    size: ["Small", "Medium", "Large", "Xlarge"],
-  };
+      if (product.price <= 20) {
+        section.price.under20 += 1;
+      } else if (product.price <= 50) {
+        section.price.between20and50 += 1;
+      } else if (product.price <= 100) {
+        section.price.between50and100 += 1;
+      } else {
+        section.price.over100 += 1;
+      }
+    });
 
-  products?.forEach((product) => {
-    const category = product.categories[0];
-
-    if (!filteredSection.categories.includes(category)) {
-      filteredSection.categories.push(product.categories[0]);
-    }
-
-    if (product.price <= 20) {
-      filteredSection.price.under20 += 1;
-    } else if (product.price <= 50) {
-      filteredSection.price.between20and50 += 1;
-    } else if (product.price <= 100) {
-      filteredSection.price.between50and100 += 1;
-    } else {
-      filteredSection.price.over100 += 1;
-    }
-  });
+    return section;
+  }, [products]);
 
   useEffect(() => {
     filteredSection.categories.length &&
       dispatch(setCategoryFilter(filteredSection.categories));
+    dispatch(setSizeFilter(filteredSection.size));
+  }, [filteredSection.categories, dispatch, filteredSection.size]);
+
+  useEffect(() => {
     dispatch(setPriceFilter(filteredSection.price));
-  }, [filteredSection.categories, filteredSection.price, dispatch]);
+  }, [filteredSection.price, dispatch]);
+
+  // const priceFilter = useSelector(getCategoryFilter);
+  const categoryFilter = useSelector(getCategoryFilter);
+  const priceFilter = useSelector(getPriceFilter);
+  const sizeFilter = useSelector(getSizeFilter);
+
+  const filteredProducts = useSelector(filterByCategory(selectedCategory));
+  console.log(filteredProducts);
+  function handleOnClick(e) {
+    console.log(e);
+    setSelectedCategory(e);
+  }
+
+  function renderOptions(filterType, filterItems) {
+    let options;
+    if (filterType === "price") {
+      options = (
+        <>
+          <li>Under 20: {`(${filterItems.under20})`}</li>
+          <li>$20 - $50: {`(${filterItems.between20and50})`}</li>
+          <li>$50 - $100: {`(${filterItems.between50and100})`}</li>
+          <li>Over $100: {`(${filterItems.over100})`}</li>
+        </>
+      );
+    } else {
+      options = filterItems?.map((el) => (
+        <li key={el}>
+          <input
+            onClick={() => handleOnClick(el)}
+            type="checkbox"
+            id={el}
+            name={el}
+          />
+          <label htmlFor={el}>{el}</label>
+        </li>
+      ));
+    }
+
+    return options;
+  }
 
   return (
     <StyledSidebar>
-      {subCategoryTitles.map((el) => (
+      <SubCategories title="Category">
+        {categoryFilter?.map((category) => renderOptions("category", category))}
+      </SubCategories>
+      <SubCategories title="Size">
+        {sizeFilter?.map((size) => renderOptions("size", size))}
+      </SubCategories>
+      <SubCategories title="Price">
+        {priceFilter?.map((price) => renderOptions("price", price))}
+      </SubCategories>
+      {/* {subCategoryTitles.map((el) => (
         <SubCategories
           onToggle={handleToggleSub}
           selected={selected == el.toLowerCase()}
@@ -77,7 +136,7 @@ function CategorySidebar({ products }) {
         >
           {el}
         </SubCategories>
-      ))}
+      ))} */}
     </StyledSidebar>
   );
 }
@@ -118,61 +177,41 @@ const SubCategoryContainer = styled.div`
   gap: 1.5rem;
   font-size: 1.2rem;
 `;
-function SubCategories({
-  filtered,
-  title,
-  children,
-  setSelected,
-  selected,
-  showSub,
-  onToggle,
-}) {
+function SubCategories({ filtered, title, children }) {
   //   <div>
   //   <input type="checkbox" id="scales" name="scales" checked />
   //   <label for="scales">Scales</label>
   // </div>
-  function showOptions() {
-    console.log(selected);
-    let options;
-    if (title === "price") {
-      console.log(filtered);
-      options = (
-        <>
-          <Li>Under $20 ({filtered.under20})</Li>
-          <Li>$20 - $50 ({filtered.between20and50})</Li>
-          <Li>$50 - $100 ({filtered.between50and100})</Li>
-          <Li>Over $100 ({filtered.over100})</Li>
-        </>
-      );
-    } else {
-      console.log(filtered);
-      options = filtered.map((el) => (
-        <div key={el}>
-          <input type="checkbox" id={el} name={el} />
-          <label htmlFor={el}>{el}</label>
-        </div>
-      ));
-    }
-    return options;
-  }
+  const categoryFilter = useSelector(getCategoryFilter);
+
+  const [display, setDisplay] = useState();
 
   return (
-    <ul>
-      <Div>
-        <ListItem onClick={() => setSelected(title)}>
-          <CategoryContainer onClick={onToggle}>
-            {children} <Span>{showSub && selected ? "-" : "+"}</Span>
-          </CategoryContainer>
-        </ListItem>
-        {showSub && selected && (
-          <SubCategoryContainer>
-            {selected && showOptions()}
-          </SubCategoryContainer>
-        )}
-      </Div>
-    </ul>
+    <Div>
+      <ListItem onClick={() => setDisplay(!display)}>
+        <CategoryContainer>
+          {title} <Span>{display ? "-" : "+"}</Span>
+        </CategoryContainer>
+      </ListItem>
+      <SubCategoryContainer>
+        {display && <ul>{children.map((el) => el)}</ul>}
+      </SubCategoryContainer>
+    </Div>
   );
 }
+
+/* <Div>
+<ListItem onClick={() => setSelected(title)}>
+  <CategoryContainer onClick={onToggle}>
+    {children} <Span>{showSub && selected ? "-" : "+"}</Span>
+  </CategoryContainer>
+</ListItem>
+{showSub && selected && (
+  <SubCategoryContainer>
+    {selected && showOptions()}
+  </SubCategoryContainer>
+)}
+</Div> */
 
 export default CategorySidebar;
 
@@ -233,3 +272,27 @@ export default CategorySidebar;
 //     `};
 //   transition: visibility 2s, opacity 0.5s linear;
 // `;
+
+// function renderOptions(type) {
+//   let options;
+//   if (type === "price") {
+//     console.log(filtered);
+//     options = (
+//       <>
+//         <Li>Under $20 ({filtered.under20})</Li>
+//         <Li>$20 - $50 ({filtered.between20and50})</Li>
+//         <Li>$50 - $100 ({filtered.between50and100})</Li>
+//         <Li>Over $100 ({filtered.over100})</Li>
+//       </>
+//     );
+//   } else {
+//     // console.log(categoryFilter);
+//     options = categoryFilter.map((el) => (
+//       <li key={el}>
+//         <input type="checkbox" id={el} name={el} />
+//         <label htmlFor={el}>{el}</label>
+//       </li>
+//     ));
+//   }
+//   return options;
+// }

@@ -14,8 +14,12 @@ import {
 } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import PromotionBanner from "../ui/PromotionBanner";
-import { useDispatch } from "react-redux";
-import { addProducts } from "../features/filter/productSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addProducts,
+  filterByCategory,
+  getProducts,
+} from "../features/filter/productSlice";
 
 /* //TODO
 Header
@@ -58,6 +62,11 @@ function Product() {
     navigate(`/products/${e.target.value}`);
   }
 
+  const p = useSelector(getProducts);
+  const filteredProducts = useSelector(filterByCategory);
+
+  console.log(p);
+  console.log(filteredProducts);
   //Will refetch
   useEffect(() => {
     setNewCategory(category);
