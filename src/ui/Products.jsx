@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { filterByCategory, getProducts } from "../features/filter/productSlice";
+import { getFilteredProduct } from "../services/product";
 
 const StyledProducts = styled.div`
   display: flex;
@@ -14,11 +15,6 @@ const StyledProducts = styled.div`
 `;
 
 function Products({ products }) {
-  // const products = useSelector(getProducts);
-  // const filteredProducts = useSelector(filterByCategory);
-
-  // console.log(products);
-  // console.log(filteredProducts);
   return (
     <StyledProducts>
       {products?.map((product) => (

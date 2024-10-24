@@ -2,11 +2,11 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import {
-  filterByCategory,
   getCategoryFilter,
   getPriceFilter,
   getSizeFilter,
   setCategoryFilter,
+  setFilteredProducts,
   setPriceFilter,
   setSizeFilter,
 } from "./productSlice";
@@ -18,18 +18,10 @@ const StyledSidebar = styled.aside`
   /* margin-right: 20px; */
 `;
 
-const subCategoryTitles = ["Categories", "Price", "Size"];
-
-function CategorySidebar({ products }) {
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [showSub, setShowSub] = useState(false);
-
+function CategorySidebar({ products, onChange }) {
   const dispatch = useDispatch();
 
-  function handleToggleSub() {
-    setShowSub((showSub) => !showSub);
-  }
-
+  //Creates available filter options based on the products
   const filteredSection = useMemo(() => {
     const section = {
       categories: [],
@@ -63,44 +55,46 @@ function CategorySidebar({ products }) {
     return section;
   }, [products]);
 
+  //Sets the available filter options. Category, Size, Price
   useEffect(() => {
-    filteredSection.categories.length &&
-      dispatch(setCategoryFilter(filteredSection.categories));
+    dispatch(setCategoryFilter(filteredSection.categories));
     dispatch(setSizeFilter(filteredSection.size));
-  }, [filteredSection.categories, dispatch, filteredSection.size]);
-
-  useEffect(() => {
     dispatch(setPriceFilter(filteredSection.price));
-  }, [filteredSection.price, dispatch]);
+  }, [
+    filteredSection.categories,
+    dispatch,
+    filteredSection.size,
+    filteredSection.price,
+  ]);
 
-  // const priceFilter = useSelector(getCategoryFilter);
+  //Gets available filter options
   const categoryFilter = useSelector(getCategoryFilter);
   const priceFilter = useSelector(getPriceFilter);
   const sizeFilter = useSelector(getSizeFilter);
 
-  const filteredProducts = useSelector(filterByCategory(selectedCategory));
-  console.log(filteredProducts);
-  function handleOnClick(e) {
-    console.log(e);
-    setSelectedCategory(e);
+  //TODO Verify if all checkboxes are unchecked, if so, reset products/filters
+  function handleSelectedFilter(e, filterName) {
+    // const checked = e.target.checked;
+
+    onChange(filterName);
   }
 
-  function renderOptions(filterType, filterItems) {
+  function renderOptions(filterType, filterOptions) {
     let options;
     if (filterType === "price") {
       options = (
         <>
-          <li>Under 20: {`(${filterItems.under20})`}</li>
-          <li>$20 - $50: {`(${filterItems.between20and50})`}</li>
-          <li>$50 - $100: {`(${filterItems.between50and100})`}</li>
-          <li>Over $100: {`(${filterItems.over100})`}</li>
+          <li>Under 20: {`(${filterOptions.under20})`}</li>
+          <li>$20 - $50: {`(${filterOptions.between20and50})`}</li>
+          <li>$50 - $100: {`(${filterOptions.between50and100})`}</li>
+          <li>Over $100: {`(${filterOptions.over100})`}</li>
         </>
       );
     } else {
-      options = filterItems?.map((el) => (
+      options = filterOptions?.map((el) => (
         <li key={el}>
           <input
-            onClick={() => handleOnClick(el)}
+            onClick={(e) => handleSelectedFilter(e, el)}
             type="checkbox"
             id={el}
             name={el}
@@ -124,19 +118,6 @@ function CategorySidebar({ products }) {
       <SubCategories title="Price">
         {priceFilter?.map((price) => renderOptions("price", price))}
       </SubCategories>
-      {/* {subCategoryTitles.map((el) => (
-        <SubCategories
-          onToggle={handleToggleSub}
-          selected={selected == el.toLowerCase()}
-          setSelected={setSelected}
-          key={el}
-          title={el.toLowerCase()}
-          showSub={showSub}
-          filtered={filteredSection[selected]}
-        >
-          {el}
-        </SubCategories>
-      ))} */}
     </StyledSidebar>
   );
 }

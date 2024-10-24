@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { BiCart } from "react-icons/bi";
 import { BiHeart } from "react-icons/bi";
 import { BiRightArrow } from "react-icons/bi";
@@ -99,7 +99,7 @@ function ProductItem({ product }) {
           <ArrowEmoji size={35} />
         </Emoji>
         <Price price={price} />
-        <Size size={size} />
+        <Size availableSize={size} />
         <BuyButton>Buy Now</BuyButton>
       </HoverContainer>
     </StyledProduct>
@@ -110,7 +110,8 @@ function Price({ price }) {
   return <div>${price}</div>;
 }
 
-const Span = styled.li`
+const Button = styled.button`
+  background-color: ${(props) => (props.disabled ? "#797474" : null)};
   display: inline-block;
   text-align: center;
   width: 3rem;
@@ -118,19 +119,28 @@ const Span = styled.li`
   padding: 1px;
   margin: 2px;
 
-  &:hover {
-    cursor: pointer;
-    border: 2px solid black;
-    background-color: grey;
-    transition: background-color 0.5s;
-  }
+  ${(props) =>
+    !props.disabled &&
+    css`
+      &:hover {
+        cursor: pointer;
+        border: 2px solid black;
+        background-color: #69a1d9;
+        transition: background-color 0.5s;
+      }
+    `}
 `;
 
-function Size({ size }) {
+const size = ["S", "M", "L", "XL"];
+
+function Size({ availableSize }) {
+  console.log(size.map((el) => availableSize.includes(el)));
   return (
     <div>
       {size.map((el) => (
-        <Span key={el}>{el}</Span>
+        <Button disabled={!availableSize.includes(el)} key={el}>
+          {el}
+        </Button>
       ))}
     </div>
   );

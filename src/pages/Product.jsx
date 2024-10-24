@@ -6,27 +6,17 @@ import Filter from "../features/filter/Filter";
 import { getAllProducts } from "../services/product";
 import Subcribe from "../ui/Subcribe";
 
-import {
-  useParams,
-  useNavigate,
-  useSearchParams,
-  replace,
-} from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import PromotionBanner from "../ui/PromotionBanner";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addProducts,
   filterByCategory,
-  getProducts,
+  setAllFilters,
+  setFilteredProducts,
 } from "../features/filter/productSlice";
 
-/* //TODO
-Header
-1. Category sidebar,
-2. Filter component/ Sort Component
-3. Product display
-*/
 const ProductContainer = styled.div`
   display: grid;
   grid-template-columns: 18% 1fr 10%;
@@ -45,6 +35,8 @@ function Product() {
   const dispatch = useDispatch();
 
   const [newCategory, setNewCategory] = useState(category);
+  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState("");
+  const [filterName, setFilterName] = useState();
 
   const { data: products, isLoading } = useQuery({
     queryKey: ["products", { newCategory }],
@@ -52,7 +44,7 @@ function Product() {
   });
 
   useEffect(() => {
-    if (products && !newCategory) {
+    if (products) {
       dispatch(addProducts(products));
     }
   }, [products, dispatch, newCategory]);
@@ -61,12 +53,22 @@ function Product() {
     setNewCategory(e.target.value);
     navigate(`/products/${e.target.value}`);
   }
+  const filteredProducts = useSelector(filterByCategory());
 
-  const p = useSelector(getProducts);
-  const filteredProducts = useSelector(filterByCategory);
+  function handleFilterChange(filter) {
+    setFilterName(filter);
+    if (filter === selectedCategoryFilter) {
+      setSelectedCategoryFilter("");
+    } else {
+      setSelectedCategoryFilter(filter);
+    }
+  }
 
-  console.log(p);
-  console.log(filteredProducts);
+  useEffect(() => {
+    dispatch(setFilteredProducts(filteredProducts));
+    dispatch(setAllFilters({ name: "categories", value: filterName }));
+  }, [selectedCategoryFilter, dispatch, filterName]);
+
   //Will refetch
   useEffect(() => {
     setNewCategory(category);
@@ -83,8 +85,12 @@ function Product() {
             defaultValue={category}
           />
           <div>Sort By:</div>
-          <CategorySidebar products={products} />
-          <Products products={products} />
+          <CategorySidebar onChange={handleFilterChange} products={products} />
+          <Products
+            products={
+              !selectedCategoryFilter && category ? products : filteredProducts
+            }
+          />
         </ProductContainer>
         <Subcribe />
       </Container>
