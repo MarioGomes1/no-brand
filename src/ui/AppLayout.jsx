@@ -14,6 +14,7 @@ const StyledAppLayout = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-x: hidden;
 `;
 const Div = styled.div`
   width: 100%;

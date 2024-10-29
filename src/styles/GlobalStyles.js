@@ -6,16 +6,13 @@ const GlobalStyles = createGlobalStyle`
 
 :root {
 
-  --color-grey-0:#d2d1d1;
-  /* --color-white-main:#f1eeee; */
-  /* Indigo */
  
 }
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  padding: 0;
+  /* padding: 0; */
   margin: 0;
 
   /* Creating animations for dark mode */
@@ -115,7 +112,6 @@ FOR DARK MODE
 --color-grey-700: #e5e7eb;
 --color-grey-800: #f3f4f6;
 --color-grey-900: #f9fafb;
-
 --color-blue-100: #075985;
 --color-blue-700: #e0f2fe;
 --color-green-100: #166534;

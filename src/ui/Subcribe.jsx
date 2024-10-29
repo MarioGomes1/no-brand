@@ -14,6 +14,13 @@ const Container = styled.div`
 
   /* background-color: #4c2b36; */
   /* grid-area: 3/1/4/-1; */
+
+  @media (max-width: 480px) {
+    width: 100%;
+    font-size: 1rem;
+    margin-top: 3rem;
+    height: 20rem;
+  }
 `;
 
 const InputContainer = styled.div`

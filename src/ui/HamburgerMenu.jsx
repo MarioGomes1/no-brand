@@ -7,6 +7,8 @@ import { NavLink } from "react-router-dom";
 
 import { IoPersonOutline } from "react-icons/io5";
 import { IoBasketOutline } from "react-icons/io5";
+import Modal from "./Modal";
+import Subcribe from "./Subcribe";
 
 const Div = styled.div`
   display: none;
@@ -25,18 +27,19 @@ function HamburgerMenu() {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+    console.log("clicked");
   };
   return (
     <Div>
-      <RxHamburgerMenu size={"30px"} onClick={toggleMenu} />
       {!isOpen && (
         <>
           <IoBasketOutline size={"25px"} />
           <IoPersonOutline size={"25px"} />
+          <RxHamburgerMenu size={"30px"} onClick={toggleMenu} />
         </>
       )}
 
-      {isOpen && <HambugerOptions show={isOpen} />}
+      <HambugerOptions show={isOpen} onClose={toggleMenu} />
     </Div>
   );
 }
@@ -45,72 +48,115 @@ export default HamburgerMenu;
 
 const slideIn = keyframes`
     from {
-        width:0;
-        height:0;
+        transform:translateY(-800px)
   }
 
   to{
-    width:50%;
+    transform:translateY(40px)
   
     };
 `;
-const slideOut = keyframes`
-    from {
-       
-    transform:translateX(300px);
-  }
 
-  to{
-    
-    transform: translateX(0)
-    };
+const slideOut = keyframes`
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
 `;
 
 const MenuModal = styled.div`
-  width: ${(props) => (props.open ? "50%" : "0")};
-  height: ${(props) => (props.open ? "100vh" : "0")}; /* Open height */
-  padding: ${(props) => (props.open ? "25px 0" : "0")};
-  background: #f8f3f3;
-  top: 100%;
+  position: fixed;
+  top: -40px;
+  right: 0;
+  width: 80%;
+  height: 100vh;
+  background: #ffffff;
   box-shadow: 0 10px 15px -3px rgb(46 41 51 / 8%),
     0 4px 6px -2px rgb(71 63 79 / 16%);
-  /* transition: all 10s; */
+  z-index: 3;
+  overflow: hidden;
 
-  z-index: 1000;
-  position: absolute;
+  transition: transform 0.5s ease;
+  transform: ${(props) => (props.open ? "translateX(0)" : "translateX(100%)")};
+
   animation: ${(props) =>
-    props.open &&
-    css`
-      ${slideIn} 1s;
-    `};
-  animation: ${(props) =>
-    !props.open &&
-    css`
-      ${slideOut} 1s;
-    `};
+    props.open
+      ? css`
+          ${slideIn} 0.5s forwards;
+        `
+      : css`
+          ${slideOut} 0.5s forwards;
+        `};
 `;
 
-const CategoryLinks = styled.div``;
+const CategoryLinks = styled.ul`
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  padding: 5rem 5rem;
+  font-size: 2rem;
+  gap: 4rem;
+`;
 
-const ButtonContainer = styled.div``;
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+  padding: 3rem;
+
+  /* justify-content: space-evenly; */
+`;
 
 const Button = styled(NavLink)`
-  background-color: black;
-  color: #b84b4b;
+  text-align: center;
+  border-radius: 10px;
+  padding: 0.5rem;
+  width: 50%;
+  background-color: ${(props) => (props.black ? "black" : "white")};
+  color: ${(props) => (props.black ? "white" : "black")};
+  border: 1px solid grey;
 `;
 
-function HambugerOptions({ show }) {
+const Li = styled(NavLink)`
+  display: flex;
+`;
+
+const P = styled.p`
+  padding: 5rem 5rem;
+`;
+
+function HambugerOptions({ show, onClose }) {
   return (
-    <MenuModal open={show}>
-      <CategoryLinks>
-        <li>Men</li>
-        <li>sdfdsf</li>
-        <li>sdfds</li>
-      </CategoryLinks>
-      <ButtonContainer>
-        <Button to="/login">Login</Button>
-        <Button to="/signup">Sign up</Button>
-      </ButtonContainer>
-    </MenuModal>
+    <Modal onClose={onClose} isOpen={show}>
+      <MenuModal open={show}>
+        <CategoryLinks>
+          <Li onClick={onClose} to="products/Men">
+            Men
+          </Li>
+          <Li onClick={onClose} to="products/Women">
+            Women
+          </Li>
+          <Li onClick={onClose} to="products/Kids">
+            Kids
+          </Li>
+          <Li onClick={onClose} to="products/Accessories">
+            Accessories
+          </Li>
+        </CategoryLinks>
+        <P>
+          Become a member today for the best products, inspiration and stories
+          in fashion
+        </P>
+        <ButtonContainer>
+          <Button black to="/login">
+            Sign In
+          </Button>
+          <Button to="/signup">Join Us</Button>
+        </ButtonContainer>
+        <Subcribe />
+      </MenuModal>
+    </Modal>
   );
 }
