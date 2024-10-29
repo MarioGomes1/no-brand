@@ -27,7 +27,9 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  /* font-family: "Sacramento", sans-serif; */
+  /* font-weight: 100; */
   color: var(--color-grey-700);
   background-color:white;
 

@@ -11,15 +11,20 @@ const StyledAttention = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 3rem;
+  margin: 5%;
+`;
+
+const Title = styled.h3`
+  font-size: 3rem;
+  font-family: "Anton SC";
 `;
 
 function Attention() {
   //TODO add dynamic content to the header
   return (
     <StyledAttention>
-      <Header as="h3">Go beyond the basics</Header>
-      <NavLink to="/products">Shop</NavLink>
+      <Title>Shop Your Style, Find Your Perfect Fit</Title>
+      <h2> – Explore Our Collections Today!</h2>
     </StyledAttention>
   );
 }

@@ -8,43 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleCategories } from "../features/categories/categorySlice";
 import SearchInput from "../features/search/SearchInput";
 
-const StyledNav = styled.ul`
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  width: 80%;
-  gap: 2rem;
-`;
-
-const Container = styled.div`
-  background-color: #e6e0d7;
-  color: #877147;
-  padding: 1rem 1rem;
-  display: flex;
-  justify-content: center;
-  gap: 2.5rem;
-  transition: 0.3s;
-  grid-column: 1/-1;
-  grid-row: 2/3;
-`;
-
-//Will come from api
-const SectionHeaders = styled(NavLink)`
-  /* &:hover {
-    border-bottom: 1px solid black;
-    cursor: pointer;
-  } */
-  &:hover,
-  &:active,
-  &.active:link,
-  &.active:visited {
-    border-bottom: 1px solid black;
-    cursor: pointer;
-  }
-`;
-
-//TODO Create headers table
-
 const tempHeaders = [
   {
     to: "New",
@@ -71,6 +34,44 @@ const tempHeaders = [
     title: "Beauty",
   },
 ];
+
+const StyledNav = styled.ul`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 80%;
+  gap: 2rem;
+`;
+
+const Container = styled.div`
+  /* background-color: #e6e0d7; */
+  background-color: #e5ecf0;
+  color: #51493a;
+  padding: 1rem 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  transition: 0.3s;
+  /* grid-column: 1/-1;
+  grid-row: 2/3; */
+
+  @media (max-width: 480px) {
+    display: none;
+  }
+`;
+
+//Will come from api
+const SectionHeaders = styled(NavLink)`
+  &:hover,
+  &:active,
+  &.active:link,
+  &.active:visited {
+    border-bottom: 1px solid black;
+    cursor: pointer;
+  }
+`;
+
+//TODO Create headers table
 
 function Nav() {
   const dispatch = useDispatch();

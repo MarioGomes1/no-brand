@@ -2,24 +2,34 @@ export const categories = [
   {
     id: 1,
     title: "Women",
+    description: "Shop our latest women's summer looks",
+    // reversedPosition: false,
     image:
       "https://images.pexels.com/photos/1154638/pexels-photo-1154638.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1%201x,%20",
   },
   {
     id: 2,
     title: "Men",
+    description: "Gentlemen, upgrade your style",
+    reversedPosition: true,
     image:
       "https://images.pexels.com/photos/27411697/pexels-photo-27411697/free-photo-of-portrait-of-man-in-shirt.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     id: 3,
     title: "Kids",
+    description: "Cool looks for the little ones!",
+    // reversedPosition: false,
+
     image:
       "https://images.pexels.com/photos/969373/pexels-photo-969373.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     id: 4,
-    title: "accessories",
+    title: "Accessories",
+    description: "Little extra goes a long way",
+    reversedPosition: true,
+
     image:
       "https://images.pexels.com/photos/1164339/pexels-photo-1164339.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
