@@ -43,7 +43,6 @@ function Home() {
   }, []);
   return (
     <StyledHome>
-      <H1>sdfsdfds</H1>
       <ShowCase />
       <Attention />
       <Category />

@@ -6,20 +6,24 @@ import { NavLink } from "react-router-dom";
 
 const StyledShowCase = styled.div`
   display: flex;
+  /* justify-content: space-evenly; */
   position: relative;
   height: 60vh;
+  width: 100vw;
 `;
 
 const Img = styled.img`
-  height: 100%;
+  height: auto;
   width: 50%;
+  max-width: 800px;
   opacity: 1;
+  /* object-fit: cover; */
 `;
 const SidePanel = styled.div`
   background-color: #5bc49e;
   color: white;
   height: 100%;
-  width: 50%;
+  width: 50vw;
   font-family: "Sacramento", sans-serif;
   font-size: 3rem;
 `;
@@ -45,27 +49,6 @@ const Button = styled.button`
     color: black;
   }
 `;
-
-// const Button = styled.button`
-//   position: absolute;
-//   top: 50%;
-//   left: 44%;
-//   width: 13%;
-//   height: 12%;
-
-//   /* transition-property: transform;
-//   transition-duration: 0.3s;
-//   transition-timing-function: ease;
-//   transition-delay: 0s; */
-
-//   transition: all 0.3s ease;
-
-//   &:hover {
-//     transform: translateY(-10px);
-//     background: black;
-//     color: white;
-//   }
-// `;
 
 function ShowCase() {
   return (

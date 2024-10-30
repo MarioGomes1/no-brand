@@ -16,12 +16,17 @@ import {
   setAllFilters,
   setFilteredProducts,
 } from "../features/filter/productSlice";
+import { device } from "../utils/mediaQueries";
 
 const ProductContainer = styled.div`
   display: grid;
   grid-template-columns: 18% 1fr 10%;
   grid-template-rows: 7vh auto;
   min-height: 70vh;
+
+  @media ${device.tablet} {
+    display: flex;
+  }
 `;
 const Container = styled.div`
   display: flex;
@@ -84,7 +89,7 @@ function Product() {
             label={"Filter Product:"}
             defaultValue={category}
           />
-          <div>Sort By:</div>
+          {/* <div>Sort By:</div> */}
           <CategorySidebar onChange={handleFilterChange} products={products} />
           <Products
             products={

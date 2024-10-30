@@ -7,6 +7,7 @@ import CategoryItem from "./CategoryItem";
 const StyledCategory = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 3rem;
 `;
 
 function Category() {

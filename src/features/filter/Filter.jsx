@@ -1,9 +1,17 @@
 import React from "react";
+import styled from "styled-components";
+import { device } from "../../utils/mediaQueries";
+
+const Container = styled.div`
+  @media ${device.tablet} {
+    display: none;
+  }
+`;
 
 function Filter({ label, filter }) {
   //TODO htmlFor
   return (
-    <div>
+    <Container>
       <label htmlFor={label}>{label}</label>
 
       <select onChange={filter}>
@@ -11,7 +19,7 @@ function Filter({ label, filter }) {
         <option value="Kids">Kids</option>
         <option value="Women">Women</option>
       </select>
-    </div>
+    </Container>
   );
 }
 

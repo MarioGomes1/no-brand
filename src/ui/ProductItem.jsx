@@ -4,10 +4,7 @@ import { BiCart } from "react-icons/bi";
 import { BiHeart } from "react-icons/bi";
 import { BiRightArrow } from "react-icons/bi";
 
-import { FaShoppingCart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
-import { FaArrowRight } from "react-icons/fa";
-import { BsListNested } from "react-icons/bs";
+import { device } from "../utils/mediaQueries";
 
 const HoverContainer = styled.div`
   opacity: 0;
@@ -21,16 +18,28 @@ const HoverContainer = styled.div`
   flex-direction: column;
   gap: 2rem;
   background-color: #d6cfcf;
+  @media ${device.tablet} {
+    gap: 0;
+  }
 `;
 
 const StyledProduct = styled.div`
-  width: 23.5rem;
+  padding: 1px;
+  border: 1px solid #e9e2e2;
+  width: 30%;
   margin: 5px;
-  height: 30rem;
+  height: 40%;
   position: relative;
   &:hover ${HoverContainer} {
     opacity: 0.8;
     transition: opacity 0.5s;
+  }
+
+  @media ${device.tablet} {
+    width: 45%;
+    height: auto;
+    max-height: 200px;
+    margin: 0;
   }
 `;
 

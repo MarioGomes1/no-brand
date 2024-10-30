@@ -5,6 +5,7 @@ import { BiCart } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 
 import logo from "../assets/image4.webp";
+import { device } from "../utils/mediaQueries";
 
 const StyledMainNav = styled.nav`
   padding: 0.5rem;
@@ -14,7 +15,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  @media (max-width: 480px) {
+  @media ${device.tablet} {
     display: none;
   }
 `;

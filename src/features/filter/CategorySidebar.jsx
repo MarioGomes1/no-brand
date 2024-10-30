@@ -10,12 +10,15 @@ import {
   setPriceFilter,
   setSizeFilter,
 } from "./productSlice";
+import { device } from "../../utils/mediaQueries";
 
 const StyledSidebar = styled.aside`
   grid-area: 2/1/2/1;
   padding: 12px;
   width: 100%;
-  /* margin-right: 20px; */
+  @media ${device.tablet} {
+    display: none;
+  }
 `;
 
 function CategorySidebar({ products, onChange }) {

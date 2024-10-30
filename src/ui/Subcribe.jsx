@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import Header from "./Header";
+import { device } from "../utils/mediaQueries";
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const Container = styled.div`
   /* background-color: #4c2b36; */
   /* grid-area: 3/1/4/-1; */
 
-  @media (max-width: 480px) {
+  @media ${device.tablet} {
     width: 100%;
     font-size: 1rem;
     margin-top: 3rem;

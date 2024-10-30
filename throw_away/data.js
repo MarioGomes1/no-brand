@@ -5,7 +5,7 @@ export const categories = [
     description: "Shop our latest women's summer looks",
     // reversedPosition: false,
     image:
-      "https://images.pexels.com/photos/1154638/pexels-photo-1154638.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1%201x,%20",
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ export const categories = [
     description: "Gentlemen, upgrade your style",
     reversedPosition: true,
     image:
-      "https://images.pexels.com/photos/27411697/pexels-photo-27411697/free-photo-of-portrait-of-man-in-shirt.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "https://images.pexels.com/photos/29061382/pexels-photo-29061382/free-photo-of-smiling-man-with-dreadlocks-holding-camera-outdoors.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   },
   {
     id: 3,
@@ -22,7 +22,7 @@ export const categories = [
     // reversedPosition: false,
 
     image:
-      "https://images.pexels.com/photos/969373/pexels-photo-969373.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "https://images.pexels.com/photos/3619972/pexels-photo-3619972.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   },
   {
     id: 4,
@@ -31,7 +31,7 @@ export const categories = [
     reversedPosition: true,
 
     image:
-      "https://images.pexels.com/photos/1164339/pexels-photo-1164339.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "https://images.pexels.com/photos/27498159/pexels-photo-27498159/free-photo-of-female-portrait.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   },
 ];
 

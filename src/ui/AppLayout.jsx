@@ -8,6 +8,7 @@ import MainNav from "./MainNav";
 import HamburgerMenu from "./HamburgerMenu";
 
 import logo from "../assets/image4.webp";
+import { device } from "../utils/mediaQueries";
 
 const StyledAppLayout = styled.main`
   background-color: var(--color-white-main);
@@ -15,12 +16,19 @@ const StyledAppLayout = styled.main`
   flex-direction: column;
   justify-content: space-between;
   overflow-x: hidden;
+  width: 100vw;
+  padding: 10px;
+
+  @media (max-width: 700px) {
+    padding: 0;
+  }
 `;
 const Div = styled.div`
   width: 100%;
   position: relative;
 
-  @media (max-width: 480px) {
+  //TODO delete this media query?
+  @media ${device.tablet} {
     justify-content: space-between;
   }
 `;

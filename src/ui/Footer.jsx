@@ -7,6 +7,7 @@ import { GrContact } from "react-icons/gr";
 import { SlSocialFacebook } from "react-icons/sl";
 import { SlSocialInstagram } from "react-icons/sl";
 import { LuTwitter } from "react-icons/lu";
+import { device } from "../utils/mediaQueries";
 
 const StyledFooter = styled.footer`
   display: flex;
@@ -16,7 +17,7 @@ const StyledFooter = styled.footer`
   padding: 15px;
   width: 100%;
   height: 25vh;
-  @media (max-width: 600px) {
+  @media ${device.tablet} {
     flex-direction: column;
     height: auto;
     padding-left: 35%;

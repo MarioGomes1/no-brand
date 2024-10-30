@@ -2,75 +2,104 @@ import React from "react";
 import styled, { css } from "styled-components";
 import Header from "./Header";
 import { NavLink } from "react-router-dom";
+import { device } from "../utils/mediaQueries";
 const StyledCategoryItem = styled.div`
+  width: auto;
   height: 40vh;
+  flex: 1;
   display: flex;
+  justify-content: space- space-between;
   position: relative;
   &:nth-child(1) {
-    left: 20%;
+    width: 100%;
+    left: 10%;
+    margin-right: auto;
   }
   &:nth-child(2) {
-    right: 5%;
+    width: 100%;
+    right: 10%;
+    margin-left: auto;
     flex-direction: row-reverse;
+    > * {
+      text-align: end;
+    }
   }
   &:nth-child(3) {
+    margin-right: auto;
+    width: 100%;
     left: 15%;
   }
   &:nth-child(4) {
-    right: 20%;
+    width: 100%;
+    right: 15%;
+    margin-left: auto;
     flex-direction: row-reverse;
+    > * {
+      text-align: end;
+    }
   }
-  > * img {
-    /* width: 50%; */
-    height: 100%;
-    position: absolute;
-  }
-`;
 
-const Div = styled.div`
-  /* height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center; */
+  @media ${device.tablet} {
+    p,
+    h1,
+    button {
+      font-size: 1.2rem;
+    }
+  }
 `;
 
 const Img = styled.img`
-  height: 100%;
-  width: 30%;
+  width: 50%;
+  max-width: 300px;
+  height: auto;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.5s;
+  }
+
+  @media ${device.tablet} {
+    width: 50%;
+    min-width: 250px;
+  }
 `;
 
-// ${(props) =>
-//   //     props.show &&
-//   //     css`
-//   //       visibility: visible;
-//   //       opacity: 1;
-
 const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 2rem;
+  width: 25%;
   ${(props) =>
     props.$position &&
     css`
       align-items: flex-end;
       margin-right: 2rem;
     `}
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  padding-left: 2rem;
-  width: 25%;
 `;
 
-const Title = styled.h1``;
+const Title = styled.h1`
+  font-size: 2rem;
+`;
 
 const Button = styled.button`
   background-color: black;
   color: white;
-  width: 20%;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #444; /* Added hover effect */
+  }
 `;
 
-const Description = styled.div``;
+const Description = styled.p`
+  word-wrap: break-word;
+  font-size: 80%;
+`;
 
 function CategoryItem({ category }) {
   const { image, title, description, reversedPosition } = category;
@@ -83,12 +112,7 @@ function CategoryItem({ category }) {
         <Title>{title}</Title>
         <Description>{description}</Description>
         <Button>
-          <NavLink
-            to={`/products/${title}
-        `}
-          >
-            Shop
-          </NavLink>
+          <NavLink to={`/products/${title} `}>Shop</NavLink>
         </Button>
       </TitleContainer>
     </StyledCategoryItem>

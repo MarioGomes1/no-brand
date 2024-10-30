@@ -7,6 +7,7 @@ import { MdOutlineKeyboardArrowUp } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCategories } from "../features/categories/categorySlice";
 import SearchInput from "../features/search/SearchInput";
+import { device } from "../utils/mediaQueries";
 
 const tempHeaders = [
   {
@@ -55,7 +56,7 @@ const Container = styled.div`
   /* grid-column: 1/-1;
   grid-row: 2/3; */
 
-  @media (max-width: 480px) {
+  @media ${device.tablet} {
     display: none;
   }
 `;
