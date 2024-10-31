@@ -8,8 +8,10 @@ import { device } from "../utils/mediaQueries";
 
 const HoverContainer = styled.div`
   opacity: 0;
+
+  max-height: 400px;
+  height: 75%;
   width: 100%;
-  height: 100%;
   position: absolute;
   top: 0;
   display: flex;
@@ -20,32 +22,39 @@ const HoverContainer = styled.div`
   background-color: #d6cfcf;
   @media ${device.tablet} {
     gap: 0;
+    /* top: 20px; */
+    min-height: 300px;
+    height: 100%;
   }
 `;
 
 const StyledProduct = styled.div`
   padding: 1px;
-  border: 1px solid #e9e2e2;
   width: 30%;
+  max-height: 400px;
   margin: 5px;
-  height: 40%;
+  height: auto;
   position: relative;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
   &:hover ${HoverContainer} {
     opacity: 0.8;
     transition: opacity 0.5s;
   }
 
   @media ${device.tablet} {
-    width: 45%;
-    height: auto;
-    max-height: 200px;
+    width: 50%;
+    height: 100%;
+    max-height: 300px;
     margin: 0;
   }
 `;
 
 const Img = styled.img`
   object-fit: cover;
-  height: 100%;
+  min-height: 300px;
+  height: 75%;
   width: 100%;
 `;
 
@@ -94,9 +103,20 @@ const BuyButton = styled.button`
     transition: background-color 0.5s;
   }
 `;
+
+const ProductInfo = styled.div`
+  height: 100%;
+  font-size: 0.75em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
+
+const P = styled.p`
+  font-weight: ${(props) => (props.$bold ? "600" : "100")};
+`;
 function ProductItem({ product }) {
-  // console.log(product);
-  const { img, price, size } = product;
+  const { img, price, size, title, desc } = product;
 
   return (
     <StyledProduct>
@@ -111,6 +131,11 @@ function ProductItem({ product }) {
         <Size availableSize={size} />
         <BuyButton>Buy Now</BuyButton>
       </HoverContainer>
+      <ProductInfo>
+        <P $bold>{title}</P>
+        <P>{desc}</P>
+        <P $bold>${price}</P>
+      </ProductInfo>
     </StyledProduct>
   );
 }
@@ -143,7 +168,6 @@ const Button = styled.button`
 const size = ["S", "M", "L", "XL"];
 
 function Size({ availableSize }) {
-  console.log(size.map((el) => availableSize.includes(el)));
   return (
     <div>
       {size.map((el) => (

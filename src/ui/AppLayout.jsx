@@ -16,8 +16,8 @@ const StyledAppLayout = styled.main`
   flex-direction: column;
   justify-content: space-between;
   overflow-x: hidden;
-  width: 100vw;
-  padding: 10px;
+  width: 100%;
+  padding: 20px;
 
   @media (max-width: 700px) {
     padding: 0;

@@ -25,7 +25,7 @@ const ProductContainer = styled.div`
   min-height: 70vh;
 
   @media ${device.tablet} {
-    display: flex;
+    grid-template-columns: 1fr;
   }
 `;
 const Container = styled.div`
@@ -34,6 +34,11 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
+const Div = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 function Product() {
   const navigate = useNavigate();
   const { category } = useParams();
@@ -82,13 +87,16 @@ function Product() {
     <>
       <Container>
         <PromotionBanner />
-        <h1>{category || "All"}</h1>
         <ProductContainer>
-          <Filter
-            filter={handleFilter}
-            label={"Filter Product:"}
-            defaultValue={category}
-          />
+          <Div>
+            <h2>{category || "All"}</h2>
+            <Filter
+              filter={handleFilter}
+              label={"Filter Product:"}
+              defaultValue={category}
+            />
+          </Div>
+
           {/* <div>Sort By:</div> */}
           <CategorySidebar onChange={handleFilterChange} products={products} />
           <Products

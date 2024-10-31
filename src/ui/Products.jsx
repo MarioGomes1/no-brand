@@ -20,7 +20,9 @@ const StyledProducts = styled.div`
   @media ${device.tablet} {
     padding-left: 0;
     justify-content: space-between;
-    gap: 3rem;
+    row-gap: 8rem;
+    height: 100vh;
+    overflow: auto;
   }
 `;
 
