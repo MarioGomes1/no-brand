@@ -39,6 +39,10 @@ const Div = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+
+const Title = styled.h1`
+  font-family: "Sacramento", sans-serif;
+`;
 function Product() {
   const navigate = useNavigate();
   const { category } = useParams();
@@ -89,7 +93,7 @@ function Product() {
         <PromotionBanner />
         <ProductContainer>
           <Div>
-            <h2>{category || "All"}</h2>
+            <Title>{category || "All"}</Title>
             <Filter
               filter={handleFilter}
               label={"Filter Product:"}
@@ -113,5 +117,4 @@ function Product() {
 
 export default Product;
 
-function Title() {}
 // function Title() {}

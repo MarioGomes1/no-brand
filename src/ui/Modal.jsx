@@ -1,6 +1,51 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { IoMdClose } from "react-icons/io";
+
+const slideIn = keyframes`
+    from {
+        transform:translateY(-100px)
+  }
+
+  to{
+    transform:translateY(40px)
+  
+    };
+`;
+
+const slideOut = keyframes`
+  from {
+    /* transform: translateX(0); */
+  }
+  to {
+    /* transform: translateX(100%); */
+  }
+`;
+
+const MenuModal = styled.div`
+  position: fixed;
+  top: -40px;
+  right: 0;
+  width: ${(props) => props.width};
+  height: 100vh;
+  background: #ffffff;
+  box-shadow: 0 10px 15px -3px rgb(46 41 51 / 8%),
+    0 4px 6px -2px rgb(71 63 79 / 16%);
+  z-index: 3;
+  overflow: hidden;
+
+  transition: transform 0.5s ease;
+  transform: ${(props) => (props.open ? "translateX(0)" : "translateX(100%)")};
+
+  animation: ${(props) =>
+    props.open
+      ? css`
+          ${slideIn} 0.5s forwards;
+        `
+      : css`
+          ${slideOut} 0.5s forwards;
+        `};
+`;
 
 const Button = styled.button`
   background: none;
@@ -10,7 +55,6 @@ const Button = styled.button`
   position: absolute;
   z-index: 4;
   top: 0;
-  /* right: 10px; */
   left: 90%;
 
   &:hover {
@@ -47,7 +91,7 @@ const StyledModal = styled.div`
     props.$isOpen ? "translateX(0)" : "translateX(100%)"};
 `;
 
-function Modal({ children, isOpen, onClose }) {
+function Modal({ children, isOpen, onClose, open, type, width }) {
   return (
     <>
       <Overlay $isOpen={isOpen} onClick={onClose} />
@@ -55,7 +99,9 @@ function Modal({ children, isOpen, onClose }) {
         <Button onClick={onClose}>
           <IoMdClose size={"30px"} />
         </Button>
-        {children}
+        <MenuModal width={width} open>
+          {children}
+        </MenuModal>
       </StyledModal>
     </>
   );
