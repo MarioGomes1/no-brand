@@ -10,6 +10,7 @@ import gsap from "gsap";
 import { NavLink } from "react-router-dom";
 import { GiConsoleController } from "react-icons/gi";
 import { useEffect } from "react";
+import Size from "./Size";
 
 const HoverContainer = styled.div`
   opacity: 0;
@@ -149,41 +150,6 @@ function ProductItem({ product }) {
 
 function Price({ price }) {
   return <div>${price}</div>;
-}
-
-const Button = styled.button`
-  background-color: ${(props) => (props.disabled ? "#797474" : null)};
-  display: inline-block;
-  text-align: center;
-  width: 3rem;
-  border: 2px inset black;
-  padding: 1px;
-  margin: 2px;
-
-  ${(props) =>
-    !props.disabled &&
-    css`
-      &:hover {
-        cursor: pointer;
-        border: 2px solid black;
-        background-color: #69a1d9;
-        transition: background-color 0.5s;
-      }
-    `}
-`;
-
-const size = ["S", "M", "L", "XL"];
-
-function Size({ availableSize }) {
-  return (
-    <div>
-      {size.map((el) => (
-        <Button disabled={!availableSize.includes(el)} key={el}>
-          {el}
-        </Button>
-      ))}
-    </div>
-  );
 }
 
 export default ProductItem;
