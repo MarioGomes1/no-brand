@@ -11,4 +11,15 @@ export async function getAllProducts(category) {
   }
 }
 
+export async function getProduct(id) {
+  let data;
+
+  try {
+    data = await axios.get(`/products/${id}`);
+    return data.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getFilteredProduct() {}

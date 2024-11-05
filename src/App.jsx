@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ProductPage from "./pages/ProductPage";
 
 function App() {
   //TODO Change the path to the corresponding pages
@@ -32,6 +33,7 @@ function App() {
             <Route path="/products" element={<Product />}>
               <Route path="/products/:category" element={<Product />} />
             </Route>
+            <Route path="/product/:id" element={<ProductPage />} />
             <Route path="/trending" element={<TrendingProducts />} />
           </Route>
           <Route path="/login" element={<Login />} />

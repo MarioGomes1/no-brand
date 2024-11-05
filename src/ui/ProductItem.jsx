@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import { BiCart } from "react-icons/bi";
 import { BiHeart } from "react-icons/bi";
 import { BiRightArrow } from "react-icons/bi";
 
 import { device } from "../utils/mediaQueries";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { NavLink } from "react-router-dom";
+import { GiConsoleController } from "react-icons/gi";
+import { useEffect } from "react";
 
 const HoverContainer = styled.div`
   opacity: 0;
@@ -116,21 +121,23 @@ const P = styled.p`
   font-weight: ${(props) => (props.$bold ? "600" : "100")};
 `;
 function ProductItem({ product }) {
-  const { img, price, size, title, desc } = product;
+  const { img, price, size, title, desc, _id: id } = product;
 
   return (
     <StyledProduct>
-      <Img src={img} alt="" />
-      <HoverContainer>
-        <Emoji>
-          <CartEmoji onClick={() => console.log("test")} size={35} />
-          <HeartEmoji size={35} />
-          <ArrowEmoji size={35} />
-        </Emoji>
-        <Price price={price} />
-        <Size availableSize={size} />
-        <BuyButton>Buy Now</BuyButton>
-      </HoverContainer>
+      <NavLink to={`/product/${id}`}>
+        <Img src={img} alt="" />
+        <HoverContainer>
+          <Emoji>
+            <CartEmoji onClick={() => console.log("test")} size={35} />
+            <HeartEmoji size={35} />
+            <ArrowEmoji size={35} />
+          </Emoji>
+          <Price price={price} />
+          <Size availableSize={size} />
+          <BuyButton>Buy Now</BuyButton>
+        </HoverContainer>
+      </NavLink>
       <ProductInfo>
         <P $bold>{title}</P>
         <P>{desc}</P>
