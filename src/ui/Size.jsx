@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled, { css } from "styled-components";
 
 const Button = styled.button`
@@ -26,6 +27,7 @@ const Button = styled.button`
         transition: background-color 0.5s;
       }
     `}
+    ${(props) => console.log(props)}
 `;
 
 const Div = styled.div`
@@ -38,14 +40,26 @@ const Div = styled.div`
 const size = ["S", "M", "L", "XL"];
 
 function Size({ availableSize, type }) {
+  const [selected, setSelected] = useState(false);
+  let test = "";
+  function handleClick() {
+    test = "whatever";
+    setSelected((prev) => !prev);
+  }
   return (
-    <Div>
+    <>
       {size.map((el) => (
-        <Button type={type} disabled={!availableSize.includes(el)} key={el}>
+        <Button
+          selected={selected}
+          onClick={handleClick}
+          type={type}
+          disabled={!availableSize.includes(el)}
+          key={el}
+        >
           {el}
         </Button>
       ))}
-    </Div>
+    </>
   );
 }
 

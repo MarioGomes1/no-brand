@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import Header from "./Header";
 import { NavLink } from "react-router-dom";
 import { device } from "../utils/mediaQueries";
+import { motion } from "framer-motion";
 const StyledCategoryItem = styled.div`
   width: auto;
   height: 40vh;
@@ -48,7 +49,7 @@ const StyledCategoryItem = styled.div`
   }
 `;
 
-const Img = styled.img`
+const Img = styled(motion.img)`
   width: 50%;
   max-width: 300px;
   height: auto;
@@ -84,7 +85,7 @@ const Title = styled.h1`
   font-size: 2rem;
 `;
 
-const Button = styled.button`
+const Button = styled(motion.button)`
   background-color: black;
   color: white;
   padding: 0.5rem 1rem;
@@ -107,11 +108,24 @@ function CategoryItem({ category }) {
   //TODO Change to Button Component
   return (
     <StyledCategoryItem>
-      <Img src={image} alt="" />
+      <Img
+        whileHover={{
+          scale: 1.1,
+          transition: { duration: 0.3 },
+        }}
+        src={image}
+        alt=""
+      />
       <TitleContainer $position={reversedPosition ? 1 : 0}>
         <Title>{title}</Title>
         <Description>{description}</Description>
-        <Button>
+        <Button
+          whileHover={{
+            scale: 1.1,
+            transition: { duration: 0.3 },
+          }}
+          whileTap={{ scale: 1 }}
+        >
           <NavLink to={`/products/${title} `}>Shop</NavLink>
         </Button>
       </TitleContainer>

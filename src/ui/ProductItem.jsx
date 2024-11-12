@@ -14,12 +14,10 @@ import Size from "./Size";
 
 const HoverContainer = styled.div`
   opacity: 0;
-
-  max-height: 400px;
-  height: 75%;
+  height: 80%;
   width: 100%;
   position: absolute;
-  top: 0;
+  top: 0px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -36,10 +34,10 @@ const HoverContainer = styled.div`
 
 const StyledProduct = styled.div`
   padding: 1px;
-  width: 30%;
-  max-height: 400px;
+  width: 100%;
+  /* max-height: 400px; */
   margin: 5px;
-  height: auto;
+  height: 75%;
   position: relative;
   justify-content: space-between;
   display: flex;
@@ -49,10 +47,9 @@ const StyledProduct = styled.div`
     transition: opacity 0.5s;
   }
 
-  @media ${device.tablet} {
-    width: 50%;
-    height: 100%;
-    max-height: 300px;
+  @media ${device.mobileL} {
+    width: 100%;
+    /* height: auto; */
     margin: 0;
   }
 `;
@@ -60,7 +57,7 @@ const StyledProduct = styled.div`
 const Img = styled.img`
   object-fit: cover;
   min-height: 300px;
-  height: 75%;
+  height: 100%;
   width: 100%;
 `;
 
@@ -121,6 +118,12 @@ const ProductInfo = styled.div`
 const P = styled.p`
   font-weight: ${(props) => (props.$bold ? "600" : "100")};
 `;
+
+const Container = styled(NavLink)`
+  background-color: red;
+  height: 50%;
+`;
+
 function ProductItem({ product }) {
   const { img, price, size, title, desc, _id: id } = product;
 
@@ -135,7 +138,9 @@ function ProductItem({ product }) {
             <ArrowEmoji size={35} />
           </Emoji>
           <Price price={price} />
-          <Size availableSize={size} />
+          <div>
+            <Size availableSize={size} />
+          </div>
           <BuyButton>Buy Now</BuyButton>
         </HoverContainer>
       </NavLink>

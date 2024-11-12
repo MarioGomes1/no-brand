@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleCategories } from "../features/categories/categorySlice";
 import SearchInput from "../features/search/SearchInput";
 import { device } from "../utils/mediaQueries";
+import { motion } from "framer-motion";
 
 const tempHeaders = [
   {
@@ -36,7 +37,7 @@ const tempHeaders = [
   },
 ];
 
-const StyledNav = styled.ul`
+const StyledNav = styled(motion.ul)`
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -46,7 +47,7 @@ const StyledNav = styled.ul`
 
 const Container = styled.div`
   /* background-color: #e6e0d7; */
-  background-color: #e5ecf0;
+  /* background-color: #e5ecf0; */
   color: #51493a;
   padding: 1rem 1rem;
   display: flex;
@@ -63,12 +64,17 @@ const Container = styled.div`
 
 //Will come from api
 const SectionHeaders = styled(NavLink)`
-  &:hover,
   &:active,
   &.active:link,
   &.active:visited {
     border-bottom: 1px solid black;
     cursor: pointer;
+  }
+
+  &:hover {
+    scale: 1.2;
+    color: #ede7e7;
+    transition: all 1;
   }
 `;
 
@@ -89,7 +95,7 @@ function Nav() {
   }
   return (
     <Container>
-      <StyledNav>
+      <StyledNav layoutId="underline">
         {tempHeaders.map((el) => (
           <SectionHeaders key={el.title} to={`/products/${el.to}`}>
             {el.title}

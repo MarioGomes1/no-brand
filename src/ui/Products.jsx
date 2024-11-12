@@ -9,10 +9,8 @@ import { device } from "../utils/mediaQueries";
 
 const StyledProducts = styled.div`
   width: 100%;
-  justify-content: space-evenly;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-area: 2;
   overflow: hidden;
   padding-left: 5rem;
@@ -20,9 +18,11 @@ const StyledProducts = styled.div`
   @media ${device.tablet} {
     padding-left: 0;
     justify-content: space-between;
-    row-gap: 8rem;
-    height: 100vh;
-    overflow: auto;
+  }
+  @media ${device.mobileL} {
+    padding-left: 0;
+    justify-content: space-between;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 `;
 

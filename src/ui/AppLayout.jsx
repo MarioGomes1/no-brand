@@ -18,6 +18,7 @@ const StyledAppLayout = styled.main`
   overflow-x: hidden;
   width: 100%;
   padding: 20px;
+  height: 100vh;
 
   @media (max-width: 700px) {
     padding: 0;
