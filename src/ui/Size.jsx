@@ -27,7 +27,13 @@ const Button = styled.button`
         transition: background-color 0.5s;
       }
     `}
-    ${(props) => console.log(props)}
+    
+    ${(props) =>
+    props.children === props.$selectedSize &&
+    css`
+      background-color: #433f3f;
+      color: white;
+    `}
 `;
 
 const Div = styled.div`
@@ -39,20 +45,16 @@ const Div = styled.div`
 
 const size = ["S", "M", "L", "XL"];
 
-function Size({ availableSize, type }) {
-  const [selected, setSelected] = useState(false);
-  let test = "";
-  function handleClick() {
-    test = "whatever";
-    setSelected((prev) => !prev);
+function Size({ availableSize, selectedSize, onSelect }) {
+  function handleClick(e) {
+    onSelect(e);
   }
   return (
     <>
       {size.map((el) => (
         <Button
-          selected={selected}
-          onClick={handleClick}
-          type={type}
+          $selectedSize={selectedSize}
+          onClick={() => handleClick(el)}
           disabled={!availableSize.includes(el)}
           key={el}
         >

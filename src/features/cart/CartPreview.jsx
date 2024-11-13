@@ -44,12 +44,13 @@ const Title = styled.p`
 function CartPreview() {
   const cart = useSelector(getCart);
   const cartTotal = useSelector(getCartTotal);
+  // console.log(cart);
 
   return (
     <StyledCartPreview>
       <Title>Cart ({cart.length})</Title>
       {cart.map((item) => (
-        <CartItem key={item._id} item={item} />
+        <CartItem key={item.id && item.selectedSize} item={item} />
       ))}
       <ButtonContainer>
         <Title>Total: ${cartTotal}</Title>

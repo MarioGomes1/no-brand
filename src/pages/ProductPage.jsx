@@ -14,10 +14,8 @@ import CartPreview from "../features/cart/CartPreview";
 const StyledProductPage = styled.div`
   display: flex;
   flex-direction: column;
-  /* height: 800px; */
 `;
 const Container = styled(motion.div)`
-  /* margin: 100px; */
   padding: 0 100px;
 
   display: grid;
@@ -63,7 +61,6 @@ const SideImageContainer = styled.div`
   @media ${device.tablet} {
     display: flex;
     width: 100%;
-    /* flex-direction: column-reverse; */
   }
 `;
 
@@ -77,9 +74,7 @@ const SideImagePreview = styled.img`
 `;
 
 const RightPanel = styled.div`
-  /* border: 1px solid red; */
   padding: 20px;
-  /* grid-column: span 4; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -91,20 +86,10 @@ const RightPanel = styled.div`
 const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* border: 1px solid #23dc2c; */
-  /* height: 25%; */
+
   gap: 0.5rem;
 `;
 
-// const Description = styled.div`
-//     display:flex;
-//     flex-direction:column;
-// `
-
-const ColorContainer = styled.div`
-  /* border: 1px solid #dddd26; */
-  height: 33%;
-`;
 const SizeContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -112,8 +97,6 @@ const SizeContainer = styled.div`
   width: 100%;
   gap: 2rem;
 `;
-
-const size = styled.span``;
 
 const Header = styled.header`
   display: flex;
@@ -156,8 +139,12 @@ const SizeDiv = styled.div`
 
 function ProductPage() {
   const { id } = useParams();
-  const [productId, setProductId] = useState(id);
   const [showCart, setShowCart] = useState(false);
+  const [selectedSize, setSelectedSize] = useState();
+
+  function handleSelectedSize(selected) {
+    setSelectedSize(selected);
+  }
 
   const dispatch = useDispatch();
 
@@ -171,7 +158,9 @@ function ProductPage() {
   function TempPreviewImages() {
     let arr = [];
     for (let index = 0; index < 8; index++) {
-      arr.push(<SideImagePreview src={product.img} />);
+      arr.push(
+        <SideImagePreview key={Math.random() * 100} src={product.img} />
+      );
     }
     return arr.map((el) => el);
   }
@@ -181,8 +170,19 @@ function ProductPage() {
   }
 
   useEffect(() => {
-    if (showCart) {
-      dispatch(addItem(product));
+    if (showCart && selectedSize) {
+      const { title, desc, img, categories, price, _id: id } = product;
+      dispatch(
+        addItem({
+          title,
+          desc,
+          img,
+          categories,
+          price,
+          selectedSize,
+          id: id + selectedSize,
+        })
+      );
     }
   }, [showCart, dispatch, product]);
 
@@ -209,13 +209,8 @@ function ProductPage() {
               animate={{
                 transition: { duration: 0.5 },
                 initial: false,
-                // x: [-110, null, 0],
                 scale: [1, 1.5, 1],
                 exit: { opacity: 0 },
-                // width: 400,
-                // height: "auto",
-                // initial: { opacity: 0, scale: 0.5 },
-                // borderRadius: ["20%", "20%", "50%", "50%", "20%"],
               }}
               src={product.img}
             />
@@ -241,7 +236,11 @@ function ProductPage() {
             <SizeContainer>
               <Span>Select Size</Span>
               <SizeDiv>
-                <Size availableSize={size} />
+                <Size
+                  availableSize={size}
+                  selectedSize={selectedSize}
+                  onSelect={handleSelectedSize}
+                />
               </SizeDiv>
             </SizeContainer>
             <ButtonGroup>

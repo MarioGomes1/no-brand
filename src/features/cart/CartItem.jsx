@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
-import { decreaseQuantity, increaseQuantity } from "./cartSlice";
+import { decreaseQuantity, increaseQuantity, deleteItem } from "./cartSlice";
 import { motion } from "framer-motion";
 
 const ProductContainer = styled.div`
@@ -62,16 +62,16 @@ const QuantityContainer = styled.div`
   gap: 1rem;
 `;
 function CartItem({ item }) {
-  const { img, title, price, _id: id } = item;
-  console.log(id);
+  const { img, title, price, id, selectedSize, quantity } = item;
 
   const dispatch = useDispatch();
+
   return (
     <ProductContainer>
       <Image src={img} alt="" />
       <Div>
         <Heading as="h2">{title}</Heading>
-        <Heading as="h1">Size: S</Heading>
+        <Heading as="h1">Size: {selectedSize}</Heading>
         <QuantityContainer>
           <Span
             whileTap={{ scale: 1.5 }}
@@ -79,7 +79,7 @@ function CartItem({ item }) {
           >
             +
           </Span>
-          <span>1</span>
+          <span>{quantity}</span>
           <Span
             whileTap={{ scale: 1.5 }}
             onClick={() => dispatch(decreaseQuantity(id))}
@@ -91,6 +91,7 @@ function CartItem({ item }) {
       <Div>
         <Heading as="h2">${price}</Heading>
         <Button
+          onClick={() => dispatch(deleteItem(id))}
           whileHover={{
             scale: 1.05,
             transition: { duration: 0.3 },

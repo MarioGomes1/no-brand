@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
   cart: [],
@@ -19,21 +19,45 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem(state, action) {
-      state.cart.push(action.payload);
+      //TODO change where it's searching for the id since the size is appended to it.
+      const duplicateProduct = state.cart.find(
+        (p) => p.title === action.payload.title
+      );
+      const duplicateSize = state.cart.find(
+        (p) => p.selectedSize === action.payload.selectedSize
+      );
+      if (!duplicateProduct || !duplicateSize) {
+        state.cart.push({ ...action.payload, quantity: 1, totalPrice: 49 });
+      } else {
+        cartSlice.caseReducers.increaseQuantity(state, {
+          payload: action.payload.id,
+        });
+      }
+    },
+    deleteItem(state, action) {
+      //TODO only delete if both size and id matches? or should i append size to the id?
+      state.cart = state.cart.filter((item) => item.id !== action.payload);
     },
     increaseQuantity(state, action) {
-      console.log(action.payload);
+      const item = state.cart.find((item) => item.id === action.payload);
+      item.quantity++;
+      item.totalPrice = item.price * item.quantity;
     },
-    decreaseQuantity(state, action) {},
+    decreaseQuantity(state, action) {
+      const item = state.cart.find((item) => item.id === action.payload);
+      item.quantity--;
+      item.totalPrice = item.price * item.quantity;
+
+      if (item.quantity === 0) cartSlice.caseReducers.deleteItem(state, action);
+    },
   },
 });
 
 export default cartSlice.reducer;
-export const { addItem, increaseQuantity, decreaseQuantity } =
+export const { addItem, increaseQuantity, decreaseQuantity, deleteItem } =
   cartSlice.actions;
 
 export const getCart = (state) => state.cart.cart;
 
 export const getCartTotal = (state) =>
-  state.cart.cart.reduce((acc, curr) => curr.price + acc, 0);
-// const test = cart.reduce((acc, curr) => curr.price + acc, 0);
+  state.cart.cart.reduce((acc, curr) => curr.totalPrice + acc, 0);
