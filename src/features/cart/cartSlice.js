@@ -21,12 +21,13 @@ const cartSlice = createSlice({
     addItem(state, action) {
       //TODO change where it's searching for the id since the size is appended to it.
       const duplicateProduct = state.cart.find(
-        (p) => p.title === action.payload.title
+        (p) => p.id === action.payload.id
       );
-      const duplicateSize = state.cart.find(
-        (p) => p.selectedSize === action.payload.selectedSize
-      );
-      if (!duplicateProduct || !duplicateSize) {
+      // const duplicateSize = state.cart.find(
+      //   (p) => p.selectedSize === action.payload.selectedSize
+      // );
+      // || !duplicateSize
+      if (!duplicateProduct) {
         state.cart.push({ ...action.payload, quantity: 1, totalPrice: 49 });
       } else {
         cartSlice.caseReducers.increaseQuantity(state, {

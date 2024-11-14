@@ -2,11 +2,18 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { loginUser } from "../../services/apiUsers";
 
 export function useLogin() {
+  console.log("test");
   const queryClient = useQueryClient();
-  const { mutate: attemptLogin, error } = useMutation({
+  const {
+    data,
+    mutate: attemptLogin,
+    isSuccess,
+    error,
+  } = useMutation({
     mutationFn: (user) => loginUser(user),
-    onSuccess: () => console.log("Logged in"),
+    onSuccess: () => console.log(data),
+    // onSuccess: () => localStorage.setItem("tok", data.data.accessToken),
   });
-
-  return { attemptLogin, error };
+  console.log(data);
+  return { attemptLogin, error, data, isSuccess };
 }

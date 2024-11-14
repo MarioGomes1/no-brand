@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useLogin } from "./useLogin";
@@ -15,10 +15,12 @@ function LoginForm() {
     formState: { errors },
   } = useForm();
 
-  const { attemptLogin, error } = useLogin();
+  const { attemptLogin, error, data, isSuccess } = useLogin();
 
+  useEffect(() => {
+    localStorage.setItem("token", data?.data.accessToken);
+  }, [isSuccess]);
   function onSubmit(e) {
-    // e.preventDefault();
     attemptLogin(e);
   }
   return (

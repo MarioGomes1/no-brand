@@ -1,6 +1,7 @@
 import axios from "./axiosConfig";
 
 export async function createUser(newUser) {
+  console.log(newUser);
   try {
     const data = await axios.post("/auth/register", newUser);
     const res = await data.json();
@@ -13,7 +14,7 @@ export async function createUser(newUser) {
 export async function loginUser(user) {
   try {
     const data = await axios.post("/auth/login", user);
-    const res = await data.json();
+    return data;
   } catch (error) {
     throw new Error(error);
   }
