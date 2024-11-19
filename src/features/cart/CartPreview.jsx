@@ -44,7 +44,6 @@ const Title = styled.p`
 function CartPreview() {
   const cart = useSelector(getCart);
   const cartTotal = useSelector(getCartTotal);
-  // console.log(cart);
 
   return (
     <StyledCartPreview>

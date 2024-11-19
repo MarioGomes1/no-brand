@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useLogin } from "./useLogin";
+import { useNavigate } from "react-router-dom";
 
 const Form = styled.form`
   width: 50rem;
@@ -15,14 +16,12 @@ function LoginForm() {
     formState: { errors },
   } = useForm();
 
-  const { attemptLogin, error, data, isSuccess } = useLogin();
+  const { attemptLogin, error, loading } = useLogin();
 
-  useEffect(() => {
-    localStorage.setItem("token", data?.data.accessToken);
-  }, [isSuccess]);
   function onSubmit(e) {
     attemptLogin(e);
   }
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <div>

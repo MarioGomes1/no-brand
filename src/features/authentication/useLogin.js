@@ -1,19 +1,23 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../../services/apiUsers";
+import { useNavigate } from "react-router-dom";
 
 export function useLogin() {
-  console.log("test");
-  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const {
     data,
     mutate: attemptLogin,
-    isSuccess,
     error,
+    loading,
   } = useMutation({
     mutationFn: (user) => loginUser(user),
-    onSuccess: () => console.log(data),
-    // onSuccess: () => localStorage.setItem("tok", data.data.accessToken),
+    onSuccess: (data) => {
+      localStorage.setItem("token", data?.data.accessToken);
+      navigate(-1);
+    },
+    onError: (error) => {
+      console.error("Login error", error);
+    },
   });
-  console.log(data);
-  return { attemptLogin, error, data, isSuccess };
+  return { attemptLogin, error, data, loading };
 }

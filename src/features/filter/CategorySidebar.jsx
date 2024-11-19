@@ -260,7 +260,6 @@ export default CategorySidebar;
 // function renderOptions(type) {
 //   let options;
 //   if (type === "price") {
-//     console.log(filtered);
 //     options = (
 //       <>
 //         <Li>Under $20 ({filtered.under20})</Li>
@@ -270,7 +269,6 @@ export default CategorySidebar;
 //       </>
 //     );
 //   } else {
-//     // console.log(categoryFilter);
 //     options = categoryFilter.map((el) => (
 //       <li key={el}>
 //         <input type="checkbox" id={el} name={el} />

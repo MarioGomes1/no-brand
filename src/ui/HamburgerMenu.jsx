@@ -29,7 +29,6 @@ function HamburgerMenu() {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    console.log("clicked");
   };
   return (
     <Div>
