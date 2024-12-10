@@ -10,6 +10,8 @@ import { device } from "../utils/mediaQueries";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../features/cart/cartSlice";
 import CartPreview from "../features/cart/CartPreview";
+import { useCreateCart } from "../features/cart/useCreateCart";
+import { useUpdateCart } from "../features/cart/useUpdateCart";
 
 const StyledProductPage = styled.div`
   display: flex;
@@ -164,14 +166,24 @@ function ProductPage() {
     }
     return arr.map((el) => el);
   }
+  const { saveUserCart } = useCreateCart();
+  const { tryUpdateCart } = useUpdateCart();
 
   function handleToggleCart() {
     setShowCart((prev) => !prev);
+    const cartId = localStorage.getItem("cartId");
+    if (!localStorage.getItem("cartId")) {
+      saveUserCart();
+    } else {
+      //change function name
+      tryUpdateCart(cartId);
+    }
   }
 
   useEffect(() => {
     if (showCart && selectedSize) {
       const { title, desc, img, categories, price, _id: id } = product;
+      console.log(product);
       dispatch(
         addItem({
           title,
@@ -180,11 +192,12 @@ function ProductPage() {
           categories,
           price,
           selectedSize,
-          id: id + selectedSize,
+          id,
+          //: id + "-" + selectedSize,
         })
       );
     }
-  }, [showCart, dispatch, product]);
+  }, [showCart, dispatch, product, selectedSize]);
 
   return (
     <StyledProductPage>

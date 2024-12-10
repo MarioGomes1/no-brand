@@ -81,18 +81,6 @@ const SectionHeaders = styled(NavLink)`
 //TODO Create headers table
 
 function Nav() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  //temporary to display down/up arrow beside Categories
-  const showCategories = useSelector((state) => state.categories.showSidebar);
-
-  function HandleToggleSidebar(e, el) {
-    e.preventDefault();
-
-    // dispatch(toggleCategories());
-    // navigate(`products/${e.title}`);
-  }
   return (
     <Container>
       <StyledNav layoutId="underline">

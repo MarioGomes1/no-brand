@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import { BiCart } from "react-icons/bi";
@@ -43,12 +43,29 @@ const CartSize = styled.span`
 
 function MainNav() {
   const cartSize = useSelector((state) => state.cart.cart.length);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(
+    localStorage.getItem("token")
+  );
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("cartId");
+    setIsUserLoggedIn(null);
+  }
+
   return (
     <StyledMainNav>
       <Container>
         <ButtonContainer>
-          <NavLink to="/login">Login</NavLink>
-          <NavLink to="/signup">Sign up</NavLink>
+          {isUserLoggedIn ? (
+            <div onClick={handleLogout}>Logout</div>
+          ) : (
+            <>
+              <NavLink to="/login">Login</NavLink>
+
+              <NavLink to="/signup">Sign up</NavLink>
+            </>
+          )}
           <CartContainer>
             <BiCart size={20} />
             {cartSize > 0 && <CartSize>{cartSize}</CartSize>}

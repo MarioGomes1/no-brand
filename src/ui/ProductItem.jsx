@@ -133,7 +133,7 @@ function ProductItem({ product }) {
         <Img src={img} alt="" />
         <HoverContainer>
           <Emoji>
-            <CartEmoji onClick={() => console.log("test")} size={35} />
+            <CartEmoji size={35} />
             <HeartEmoji size={35} />
             <ArrowEmoji size={35} />
           </Emoji>
