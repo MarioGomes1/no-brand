@@ -29,9 +29,9 @@ const Button = styled.button`
     `}
     
     ${(props) =>
-    props.children === props.$selectedSize &&
+    props.children === props.$selectedSize[0] &&
     css`
-      background-color: #433f3f;
+      background-color: #e15252;
       color: white;
     `}
 `;
@@ -43,7 +43,8 @@ const Div = styled.div`
   gap: 1.5rem;
 `;
 
-const size = ["S", "M", "L", "XL"];
+//TODO fetch sizes from the database
+const size = ["Small", "Medium", "Large", "XLarge"];
 
 function Size({ availableSize, selectedSize, onSelect }) {
   function handleClick(e) {
@@ -53,12 +54,12 @@ function Size({ availableSize, selectedSize, onSelect }) {
     <>
       {size.map((el) => (
         <Button
-          $selectedSize={selectedSize}
+          $selectedSize={selectedSize || ""}
           onClick={() => handleClick(el)}
           disabled={!availableSize.includes(el)}
           key={el}
         >
-          {el}
+          {el[0]}
         </Button>
       ))}
     </>

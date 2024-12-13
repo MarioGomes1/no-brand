@@ -125,12 +125,12 @@ const Container = styled(NavLink)`
 `;
 
 function ProductItem({ product }) {
-  const { img, price, size, title, desc, _id: id } = product;
+  const { image, price, size, title, desc, id } = product;
 
   return (
     <StyledProduct>
       <NavLink to={`/product/${id}`}>
-        <Img src={img} alt="" />
+        <Img src={image} alt="" />
         <HoverContainer>
           <Emoji>
             <CartEmoji size={35} />

@@ -30,7 +30,7 @@ function Products({ products }) {
   return (
     <StyledProducts>
       {products?.map((product) => (
-        <ProductItem product={product} key={product._id} />
+        <ProductItem product={product} key={product.id} />
       ))}
     </StyledProducts>
   );

@@ -21,17 +21,16 @@ const cartSlice = createSlice({
     addItem(state, action) {
       //TODO change where it's searching for the id since the size is appended to it.
       const duplicateProduct = state.cart.find(
-        (p) => p.id === action.payload.id
+        (p) =>
+          p.id === action.payload.id &&
+          p.selectedSize === action.payload.selectedSize
       );
-      // const duplicateSize = state.cart.find(
-      //   (p) => p.selectedSize === action.payload.selectedSize
-      // );
-      // || !duplicateSize
+
       if (!duplicateProduct) {
         state.cart.push({ ...action.payload, quantity: 1, totalPrice: 49 });
       } else {
         cartSlice.caseReducers.increaseQuantity(state, {
-          payload: action.payload.id,
+          payload: action.payload,
         });
       }
     },
@@ -40,12 +39,21 @@ const cartSlice = createSlice({
       state.cart = state.cart.filter((item) => item.id !== action.payload);
     },
     increaseQuantity(state, action) {
-      const item = state.cart.find((item) => item.id === action.payload);
+      const item = state.cart.find(
+        (item) =>
+          item.id === action.payload.id &&
+          item.selectedSize === action.payload.selectedSize
+      );
+      console.log(item);
       item.quantity++;
       item.totalPrice = item.price * item.quantity;
     },
     decreaseQuantity(state, action) {
-      const item = state.cart.find((item) => item.id === action.payload);
+      const item = state.cart.find(
+        (item) =>
+          item.id === action.payload.id &&
+          item.selectedSize === action.payload.selectedSize
+      );
       item.quantity--;
       item.totalPrice = item.price * item.quantity;
 

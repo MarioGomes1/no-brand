@@ -39,7 +39,7 @@ function CategorySidebar({ products, onChange }) {
     };
 
     products?.forEach((product) => {
-      const category = product.categories[0];
+      const category = product.category;
       if (!section.categories.includes(category)) {
         section.categories.push(category);
       }
@@ -86,12 +86,13 @@ function CategorySidebar({ products, onChange }) {
     let options;
     if (filterType === "price") {
       options = (
-        <>
+        //TODO FIX STYLE
+        <div key="price">
           <li>Under 20: {`(${filterOptions.under20})`}</li>
           <li>$20 - $50: {`(${filterOptions.between20and50})`}</li>
           <li>$50 - $100: {`(${filterOptions.between50and100})`}</li>
           <li>Over $100: {`(${filterOptions.over100})`}</li>
-        </>
+        </div>
       );
     } else {
       options = filterOptions?.map((el) => (
@@ -184,97 +185,4 @@ function SubCategories({ filtered, title, children }) {
   );
 }
 
-/* <Div>
-<ListItem onClick={() => setSelected(title)}>
-  <CategoryContainer onClick={onToggle}>
-    {children} <Span>{showSub && selected ? "-" : "+"}</Span>
-  </CategoryContainer>
-</ListItem>
-{showSub && selected && (
-  <SubCategoryContainer>
-    {selected && showOptions()}
-  </SubCategoryContainer>
-)}
-</Div> */
-
 export default CategorySidebar;
-
-// return (
-//   <StyledSidebar>
-//     Total number of items
-//     <Container>
-//       <List>
-//         <ListItem>
-//           <Div>
-//             Category <Span>+</Span>
-//           </Div>
-//           <SubCategories>
-//             <List>
-//               Men
-//               <SubCategories>blahg</SubCategories>
-//               <SubCategories>blahg</SubCategories>
-//               <SubCategories>blahg</SubCategories>
-//             </List>
-//           </SubCategories>
-//         </ListItem>
-//       </List>
-//       <List>
-//         <ListItem>
-//           <Div>
-//             Category <span>+</span>
-//           </Div>
-//           <SubCategories>
-//             <List>
-//               Men
-//               <SubCategories>blahg</SubCategories>
-//               <SubCategories>blahg</SubCategories>
-//               <SubCategories>blahg</SubCategories>
-//             </List>
-//           </SubCategories>
-//         </ListItem>
-//       </List>
-//     </Container>
-//   </StyledSidebar>
-
-// const StyledSidebar = styled.aside`
-//   background-color: red;
-//   width: 100%;
-//   visibility: hidden;
-//   opacity: 0;
-
-//   ${(props) =>
-//     props.show &&
-//     css`
-//       visibility: visible;
-//       opacity: 1;
-//     `};
-//   ${(props) =>
-//     !props.show &&
-//     css`
-//       transition: visibility 2s, opacity 0s linear;
-//       visibility: hidden;
-//     `};
-//   transition: visibility 2s, opacity 0.5s linear;
-// `;
-
-// function renderOptions(type) {
-//   let options;
-//   if (type === "price") {
-//     options = (
-//       <>
-//         <Li>Under $20 ({filtered.under20})</Li>
-//         <Li>$20 - $50 ({filtered.between20and50})</Li>
-//         <Li>$50 - $100 ({filtered.between50and100})</Li>
-//         <Li>Over $100 ({filtered.over100})</Li>
-//       </>
-//     );
-//   } else {
-//     options = categoryFilter.map((el) => (
-//       <li key={el}>
-//         <input type="checkbox" id={el} name={el} />
-//         <label htmlFor={el}>{el}</label>
-//       </li>
-//     ));
-//   }
-//   return options;
-// }

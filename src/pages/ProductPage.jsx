@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getProduct } from "../services/product";
 import { useParams, useSearchParams } from "react-router-dom";
 import { motion, useMotionValue, useTransform } from "framer-motion";
@@ -155,14 +155,13 @@ function ProductPage() {
     queryFn: () => getProduct(id),
   });
 
-  const { title, size, desc, price, categories } = product || "";
+  const { title, sizes, description, price, category, image } = product || "";
+  console.log(sizes);
 
   function TempPreviewImages() {
     let arr = [];
     for (let index = 0; index < 8; index++) {
-      arr.push(
-        <SideImagePreview key={Math.random() * 100} src={product.img} />
-      );
+      arr.push(<SideImagePreview key={Math.random() * 100} src={image} />);
     }
     return arr.map((el) => el);
   }
@@ -172,28 +171,27 @@ function ProductPage() {
   function handleToggleCart() {
     setShowCart((prev) => !prev);
     const cartId = localStorage.getItem("cartId");
-    if (!localStorage.getItem("cartId")) {
-      saveUserCart();
-    } else {
-      //change function name
-      tryUpdateCart(cartId);
-    }
+    saveUserCart();
+    // if (!localStorage.getItem("cartId")) {
+    // } else {
+    //   //change function name
+    //   tryUpdateCart(cartId);
+    // }
   }
 
   useEffect(() => {
     if (showCart && selectedSize) {
-      const { title, desc, img, categories, price, _id: id } = product;
-      console.log(product);
+      //TODO is this a duplicate?
+      const { title, description, image, categories, price, id } = product;
       dispatch(
         addItem({
           title,
-          desc,
-          img,
+          description,
+          image,
           categories,
           price,
           selectedSize,
           id,
-          //: id + "-" + selectedSize,
         })
       );
     }
@@ -225,7 +223,7 @@ function ProductPage() {
                 scale: [1, 1.5, 1],
                 exit: { opacity: 0 },
               }}
-              src={product.img}
+              src={product.image}
             />
           </LeftPanel>
           <RightPanel>
@@ -233,9 +231,9 @@ function ProductPage() {
               <Span weight="500" fontSize="2em">
                 {title}
               </Span>
-              <Span weight="200" fontSize="1em">
+              {/* <Span weight="200" fontSize="1em">
                 {categories.toString().split(", ")}
-              </Span>
+              </Span> */}
               <Span weight="600" fontSize="1.3em">
                 ${price}
               </Span>
@@ -250,7 +248,7 @@ function ProductPage() {
               <Span>Select Size</Span>
               <SizeDiv>
                 <Size
-                  availableSize={size}
+                  availableSize={sizes}
                   selectedSize={selectedSize}
                   onSelect={handleSelectedSize}
                 />

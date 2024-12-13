@@ -62,7 +62,7 @@ const QuantityContainer = styled.div`
   gap: 1rem;
 `;
 function CartItem({ item }) {
-  const { img, title, price, id, selectedSize, quantity } = item;
+  const { image: img, title, price, id, selectedSize, quantity } = item;
 
   const dispatch = useDispatch();
 
@@ -75,14 +75,14 @@ function CartItem({ item }) {
         <QuantityContainer>
           <Span
             whileTap={{ scale: 1.5 }}
-            onClick={() => dispatch(increaseQuantity(id))}
+            onClick={() => dispatch(increaseQuantity({ id, selectedSize }))}
           >
             +
           </Span>
           <span>{quantity}</span>
           <Span
             whileTap={{ scale: 1.5 }}
-            onClick={() => dispatch(decreaseQuantity(id))}
+            onClick={() => dispatch(decreaseQuantity({ id, selectedSize }))}
           >
             -
           </Span>
