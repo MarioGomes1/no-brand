@@ -42,7 +42,7 @@ const CartSize = styled.span`
 `;
 
 function MainNav() {
-  const cartSize = useSelector((state) => state.cart.cart.length);
+  const cartSize = useSelector((state) => state.cart.cart?.length);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(
     localStorage.getItem("token")
   );

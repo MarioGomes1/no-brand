@@ -1,9 +1,21 @@
 import axios from "./axiosConfig";
 
-const token = localStorage.getItem("token");
-console.log(token);
+// const token = localStorage.getItem("token");
+
+export async function getUserCart(id) {
+  try {
+    const cart = await axios.get(`/cart/`, {
+      headers: {
+        token: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return cart;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
 export async function saveCart(cart) {
-  console.log(cart);
+  console.log(localStorage.getItem("token"));
   try {
     const data = await axios.post(
       "/cart",

@@ -156,7 +156,6 @@ function ProductPage() {
   });
 
   const { title, sizes, description, price, category, image } = product || "";
-  console.log(sizes);
 
   function TempPreviewImages() {
     let arr = [];

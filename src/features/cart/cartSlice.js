@@ -1,4 +1,21 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getUserCart } from "../../services/apiCart";
+
+export const fetchCart = createAsyncThunk(
+  "/cart/fetchCart",
+  async (_, { getState }) => {
+    console.log(getState().user);
+    try {
+      const token = getState().user.accessToken;
+      const data = await getUserCart(token);
+      console.log(data);
+      return data.data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  }
+);
 
 const initialState = {
   cart: [],
@@ -59,6 +76,12 @@ const cartSlice = createSlice({
 
       if (item.quantity === 0) cartSlice.caseReducers.deleteItem(state, action);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCart.fulfilled, (state, action) => {
+      console.log(action.payload);
+      state.cart = action.payload;
+    });
   },
 });
 

@@ -16,7 +16,7 @@ function LoginForm() {
     formState: { errors },
   } = useForm();
 
-  const { attemptLogin, error, loading } = useLogin();
+  const { attemptLogin, error, isLoading } = useLogin();
 
   function onSubmit(e) {
     attemptLogin(e);

@@ -13,7 +13,7 @@ export async function createUser(newUser) {
 export async function loginUser(user) {
   try {
     const data = await axios.post("/auth/login", user);
-    return data;
+    return data.data;
   } catch (error) {
     throw new Error(error);
   }

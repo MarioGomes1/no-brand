@@ -5,7 +5,7 @@ import { updateCart } from "../../services/apiCart";
 
 export function useUpdateCart(id) {
   const cart = useSelector(getCart);
-  const prod = cart.map((el) => {
+  const prod = cart?.map((el) => {
     return {
       productId: el.id,
       quantity: el.quantity,
